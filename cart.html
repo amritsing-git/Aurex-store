@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>AUREX — Cart</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f5f5f5;
+
+    color: #111;
+
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.cart-header {
+
+    background: #fff;
+
+    border-bottom:
+        1px solid #e8e8e8;
+
+    padding: 15px 5%;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+}
+
+.cart-header-row {
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+
+.cart-logo {
+
+    color: #111;
+
+    text-decoration: none;
+
+    font-size: 23px;
+
+    font-weight: 900;
+
+    letter-spacing: 4px;
+
+}
+
+.cart-back {
+
+    color: #111;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+/* ================================
+   MAIN
+================================ */
+
+.cart-wrapper {
+
+    max-width: 1100px;
+
+    margin: 35px auto;
+
+    padding: 0 18px;
+
+}
+
+.cart-title {
+
+    margin-bottom: 22px;
+
+}
+
+.cart-title h1 {
+
+    margin: 0;
+
+    font-size: 32px;
+
+}
+
+.cart-title p {
+
+    margin: 7px 0 0;
+
+    color: #777;
+
+    font-size: 13px;
+
+}
+
+
+/* ================================
+   EMPTY CART
+================================ */
+
+.empty-cart {
+
+    background: #fff;
+
+    border:
+        1px solid #e4e4e4;
+
+    border-radius: 18px;
+
+    padding: 65px 20px;
+
+    text-align: center;
+
+}
+
+.empty-cart-icon {
+
+    font-size: 48px;
+
+    margin-bottom: 15px;
+
+}
+
+.empty-cart h2 {
+
+    margin: 0 0 8px;
+
+    font-size: 21px;
+
+}
+
+.empty-cart p {
+
+    color: #777;
+
+    font-size: 13px;
+
+    margin-bottom: 22px;
+
+}
+
+.shop-button {
+
+    display: inline-block;
+
+    background: #111;
+
+    color: #fff;
+
+    text-decoration: none;
+
+    padding: 13px 25px;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+}
+
+
+/* ================================
+   CART CONTENT
+================================ */
+
+.cart-content {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 330px;
+
+    gap: 20px;
+
+}
+
+.cart-items {
+
+    display: grid;
+
+    gap: 12px;
+
+}
+
+
+/* ================================
+   CART ITEM
+================================ */
+
+.cart-item {
+
+    background: #fff;
+
+    border:
+        1px solid #e5e5e5;
+
+    border-radius: 16px;
+
+    padding: 14px;
+
+    display: grid;
+
+    grid-template-columns:
+        105px 1fr auto;
+
+    gap: 15px;
+
+    align-items: center;
+
+    transition: .2s ease;
+
+}
+
+.cart-item:hover {
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.07);
+
+}
+
+.cart-item-image {
+
+    width: 105px;
+
+    height: 105px;
+
+    object-fit: contain;
+
+    background: #f5f5f5;
+
+    border-radius: 12px;
+
+}
+
+.cart-item-name {
+
+    margin: 0 0 6px;
+
+    font-size: 16px;
+
+}
+
+.cart-item-price {
+
+    margin: 0;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+}
+
+.cart-item-size {
+
+    display: inline-block;
+
+    margin-top: 8px;
+
+    padding: 5px 9px;
+
+    border-radius: 6px;
+
+    background: #f1f1f1;
+
+    color: #555;
+
+    font-size: 11px;
+
+}
+
+
+/* ================================
+   QUANTITY
+================================ */
+
+.quantity-box {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 12px;
+
+}
+
+.quantity-button {
+
+    width: 30px;
+
+    height: 30px;
+
+    border:
+        1px solid #ccc;
+
+    background: #fff;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-weight: 800;
+
+}
+
+.quantity-number {
+
+    min-width: 22px;
+
+    text-align: center;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+/* ================================
+   REMOVE
+================================ */
+
+.remove-button {
+
+    border: none;
+
+    background: transparent;
+
+    color: #777;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+}
+
+.remove-button:hover {
+
+    color: #111;
+
+}
+
+
+/* ================================
+   SUMMARY
+================================ */
+
+.cart-summary {
+
+    background: #fff;
+
+    border:
+        1px solid #e4e4e4;
+
+    border-radius: 16px;
+
+    padding: 22px;
+
+    height: fit-content;
+
+    position: sticky;
+
+    top: 90px;
+
+}
+
+.cart-summary h2 {
+
+    margin: 0 0 20px;
+
+    font-size: 19px;
+
+}
+
+.summary-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 13px;
+
+    font-size: 14px;
+
+}
+
+.summary-total {
+
+    border-top:
+        1px solid #eee;
+
+    padding-top: 16px;
+
+    margin-top: 17px;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+}
+
+.checkout-button {
+
+    width: 100%;
+
+    margin-top: 17px;
+
+    padding: 15px;
+
+    background: #111;
+
+    color: #fff;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+
+}
+
+.checkout-button:hover {
+
+    background: #292929;
+
+    transform:
+        translateY(-1px);
+
+}
+
+.checkout-button:disabled {
+
+    opacity: .45;
+
+    cursor: not-allowed;
+
+}
+
+
+/* ================================
+   TRUST
+================================ */
+
+.cart-trust {
+
+    margin-top: 15px;
+
+    padding: 13px;
+
+    background: #f7f7f7;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    font-size: 11px;
+
+    color: #777;
+
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+.cart-footer {
+
+    margin-top: 55px;
+
+    background: #111;
+
+    color: #fff;
+
+    text-align: center;
+
+    padding: 35px 20px;
+
+}
+
+.cart-footer-logo {
+
+    font-size: 23px;
+
+    font-weight: 900;
+
+    letter-spacing: 4px;
+
+}
+
+.cart-footer p {
+
+    color: #999;
+
+    font-size: 12px;
+
+}
+
+
+/* ================================
+   PREMIUM TOAST
+================================ */
+
+#aurexToast {
+
+    position: fixed;
+
+    top: 20px;
+
+    right: 20px;
+
+    width:
+        min(380px, calc(100% - 30px));
+
+    background:
+        rgba(20,20,20,.97);
+
+    color: #fff;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    border-radius: 16px;
+
+    padding: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    z-index: 99999;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.35);
+
+    transform:
+        translateX(120%);
+
+    opacity: 0;
+
+    transition:
+        .35s cubic-bezier(.2,.8,.2,1);
+
+}
+
+#aurexToast.show {
+
+    transform:
+        translateX(0);
+
+    opacity: 1;
+
+}
+
+.toast-icon {
+
+    width: 39px;
+
+    height: 39px;
+
+    min-width: 39px;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    color: #111;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 19px;
+
+    font-weight: 900;
+
+}
+
+.toast-content {
+
+    flex: 1;
+
+}
+
+.toast-content strong {
+
+    display: block;
+
+    font-size: 14px;
+
+    margin-bottom: 4px;
+
+}
+
+.toast-content span {
+
+    display: block;
+
+    color: #aaa;
+
+    font-size: 12px;
+
+    line-height: 1.4;
+
+}
+
+.toast-close {
+
+    border: none;
+
+    background: transparent;
+
+    color: #777;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media(max-width:750px) {
+
+    .cart-content {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .cart-summary {
+
+        position: static;
+
+    }
+
+    .cart-item {
+
+        grid-template-columns:
+            80px 1fr;
+
+    }
+
+    .cart-item-image {
+
+        width: 80px;
+
+        height: 80px;
+
+    }
+
+    .remove-button {
+
+        grid-column: 2;
+
+        justify-self: start;
+
+    }
+
+    .cart-title h1 {
+
+        font-size: 27px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="cart-header">
+
+<div class="cart-header-row">
+
+<a
+href="index.html"
+class="cart-logo">
+
+AUREX
+
+</a>
+
+<a
+href="products.html"
+class="cart-back">
+
+← Continue Shopping
+
+</a>
+
+</div>
+
+</header>
+
+
+<main class="cart-wrapper">
+
+
+<div class="cart-title">
+
+<h1>Your Cart</h1>
+
+<p>
+Review your selected products before checkout.
+</p>
+
+</div>
+
+
+<div
+id="emptyCart"
+class="empty-cart">
+
+<div class="empty-cart-icon">
+🛒
+</div>
+
+<h2>
+Your cart is empty
+</h2>
+
+<p>
+Discover something you love and add it to your cart.
+</p>
+
+<a
+href="products.html"
+class="shop-button">
+
+Start Shopping
+
+</a>
+
+</div>
+
+
+<div
+id="cartContent"
+class="cart-content"
+style="display:none;">
+
+<div
+id="cartItems"
+class="cart-items">
+</div>
+
+
+<div class="cart-summary">
+
+<h2>
+Order Summary
+</h2>
+
+
+<div class="summary-row">
+
+<span>
+Subtotal
+</span>
+
+<strong id="subtotal">
+₹0
+</strong>
+
+</div>
+
+
+<div class="summary-row">
+
+<span>
+Delivery
+</span>
+
+<strong>
+FREE
+</strong>
+
+</div>
+
+
+<div
+class="summary-row summary-total">
+
+<span>
+Total
+</span>
+
+<strong id="total">
+₹0
+</strong>
+
+</div>
+
+
+<button
+id="checkoutButton"
+class="checkout-button">
+
+Proceed to Checkout
+
+</button>
+
+
+<div class="cart-trust">
+
+🔒 Secure checkout &nbsp; • &nbsp;
+🚚 Fast delivery
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+
+<footer class="cart-footer">
+
+<div class="cart-footer-logo">
+AUREX
+</div>
+
+<p>
+Future in Motion.
+</p>
+
+<p>
+© 2026 AUREX. All Rights Reserved.
+</p>
+
+</footer>
+
+
+<script>
+
+/* =========================================
+   LOAD CART
+========================================= */
+
+var cart = [];
+
+try {
+
+    cart = JSON.parse(
+        localStorage.getItem("aurexCart") || "[]"
+    );
+
+} catch (error) {
+
+    cart = [];
+
+}
+
+
+/* =========================================
+   SAVE CART
+========================================= */
+
+function saveCart() {
+
+    localStorage.setItem(
+        "aurexCart",
+        JSON.stringify(cart)
+    );
+
+}
+
+
+/* =========================================
+   PREMIUM TOAST
+
+   No typed parameters.
+   This avoids Acode's
+   TypeScript 7044 warning.
+========================================= */
+
+function showToast() {
+
+    var title =
+        arguments[0] || "AUREX";
+
+    var message =
+        arguments[1] || "";
+
+
+    var oldToast =
+        document.getElementById(
+            "aurexToast"
+        );
+
+
+    if (oldToast) {
+
+        oldToast.remove();
+
+    }
+
+
+    var toast =
+        document.createElement("div");
+
+
+    toast.id =
+        "aurexToast";
+
+
+    toast.innerHTML =
+
+        '<div class="toast-icon">✓</div>' +
+
+        '<div class="toast-content">' +
+
+        '<strong>' +
+        title +
+        '</strong>' +
+
+        '<span>' +
+        message +
+        '</span>' +
+
+        '</div>' +
+
+        '<button class="toast-close">' +
+        '×' +
+        '</button>';
+
+
+    document.body.appendChild(
+        toast
+    );
+
+
+    requestAnimationFrame(
+        function() {
+
+            toast.classList.add(
+                "show"
+            );
+
+        }
+    );
+
+
+    toast
+    .querySelector(
+        ".toast-close"
+    )
+    .addEventListener(
+        "click",
+        function() {
+
+            closeToast();
+
+        }
+    );
+
+
+    setTimeout(
+        function() {
+
+            closeToast();
+
+        },
+        3000
+    );
+
+}
+
+
+/* =========================================
+   CLOSE TOAST
+========================================= */
+
+function closeToast() {
+
+    var toast =
+        document.getElementById(
+            "aurexToast"
+        );
+
+
+    if (!toast) {
+
+        return;
+
+    }
+
+
+    toast.classList.remove(
+        "show"
+    );
+
+
+    setTimeout(
+        function() {
+
+            if (
+                toast &&
+                toast.parentNode
+            ) {
+
+                toast.remove();
+
+            }
+
+        },
+        350
+    );
+
+}
+
+
+/* =========================================
+   RENDER CART
+========================================= */
+
+function renderCart() {
+
+    var emptyCart =
+        document.getElementById(
+            "emptyCart"
+        );
+
+    var cartContent =
+        document.getElementById(
+            "cartContent"
+        );
+
+    var cartItems =
+        document.getElementById(
+            "cartItems"
+        );
+
+    var subtotal =
+        document.getElementById(
+            "subtotal"
+        );
+
+    var total =
+        document.getElementById(
+            "total"
+        );
+
+
+    cartItems.innerHTML =
+        "";
+
+
+    if (
+        !Array.isArray(cart) ||
+        cart.length === 0
+    ) {
+
+        emptyCart.style.display =
+            "block";
+
+        cartContent.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    emptyCart.style.display =
+        "none";
+
+    cartContent.style.display =
+        "grid";
+
+
+    var totalPrice =
+        0;
+
+
+    for (
+        var i = 0;
+        i < cart.length;
+        i++
+    ) {
+
+        var item =
+            cart[i];
+
+
+        var price =
+            Number(item.price) || 0;
+
+
+        var quantity =
+            Number(item.quantity) || 1;
+
+
+        totalPrice +=
+            price * quantity;
+
+
+        var itemElement =
+            document.createElement(
+                "div"
+            );
+
+
+        itemElement.className =
+            "cart-item";
+
+
+        var itemName =
+            item.name ||
+            "AUREX Product";
+
+
+        var itemImage =
+            item.image ||
+            "";
+
+
+        var sizeHTML =
+            "";
+
+
+        if (item.size) {
+
+            sizeHTML =
+
+                '<span class="cart-item-size">' +
+
+                'Size: ' +
+
+                item.size +
+
+                '</span>';
+
+        }
+
+
+        itemElement.innerHTML =
+
+            '<img ' +
+
+            'class="cart-item-image" ' +
+
+            'src="' +
+            itemImage +
+            '" ' +
+
+            'alt="' +
+            itemName +
+            '">' +
+
+
+            '<div>' +
+
+            '<h3 class="cart-item-name">' +
+
+            itemName +
+
+            '</h3>' +
+
+
+            '<p class="cart-item-price">' +
+
+            '₹' +
+            price +
+
+            '</p>' +
+
+
+            sizeHTML +
+
+
+            '<div class="quantity-box">' +
+
+            '<button ' +
+
+            'class="quantity-button" ' +
+
+            'data-index="' +
+            i +
+            '" ' +
+
+            'data-change="-1">' +
+
+            '−' +
+
+            '</button>' +
+
+
+            '<span class="quantity-number">' +
+
+            quantity +
+
+            '</span>' +
+
+
+            '<button ' +
+
+            'class="quantity-button" ' +
+
+            'data-index="' +
+            i +
+            '" ' +
+
+            'data-change="1">' +
+
+            '+' +
+
+            '</button>' +
+
+            '</div>' +
+
+            '</div>' +
+
+
+            '<button ' +
+
+            'class="remove-button" ' +
+
+            'data-remove="' +
+            i +
+            '">' +
+
+            'Remove' +
+
+            '</button>';
+
+
+        cartItems.appendChild(
+            itemElement
+        );
+
+    }
+
+
+    subtotal.textContent =
+        "₹" +
+        totalPrice;
+
+
+    total.textContent =
+        "₹" +
+        totalPrice;
+
+
+    /* ================================
+       QUANTITY
+    ================================ */
+
+    var quantityButtons =
+        document.querySelectorAll(
+            ".quantity-button"
+        );
+
+
+    for (
+        var q = 0;
+        q < quantityButtons.length;
+        q++
+    ) {
+
+        quantityButtons[q]
+        .addEventListener(
+            "click",
+            function() {
+
+                var index =
+                    Number(
+                        this.getAttribute(
+                            "data-index"
+                        )
+                    );
+
+
+                var change =
+                    Number(
+                        this.getAttribute(
+                            "data-change"
+                        )
+                    );
+
+
+                if (
+                    !cart[index]
+                ) {
+
+                    return;
+
+                }
+
+
+                cart[index].quantity =
+                    Number(
+                        cart[index].quantity
+                    ) +
+                    change;
+
+
+                if (
+                    cart[index].quantity <= 0
+                ) {
+
+                    var removedName =
+                        cart[index].name ||
+                        "Product";
+
+
+                    cart.splice(
+                        index,
+                        1
+                    );
+
+
+                    showToast(
+                        "Removed from Cart",
+                        removedName +
+                        " has been removed."
+                    );
+
+                }
+
+
+                saveCart();
+
+                renderCart();
+
+            }
+        );
+
+    }
+
+
+    /* ================================
+       REMOVE
+    ================================ */
+
+    var removeButtons =
+        document.querySelectorAll(
+            ".remove-button"
+        );
+
+
+    for (
+        var r = 0;
+        r < removeButtons.length;
+        r++
+    ) {
+
+        removeButtons[r]
+        .addEventListener(
+            "click",
+            function() {
+
+                var index =
+                    Number(
+                        this.getAttribute(
+                            "data-remove"
+                        )
+                    );
+
+
+                if (
+                    !cart[index]
+                ) {
+
+                    return;
+
+                }
+
+
+                var name =
+                    cart[index].name ||
+                    "Product";
+
+
+                cart.splice(
+                    index,
+                    1
+                );
+
+
+                saveCart();
+
+                renderCart();
+
+
+                showToast(
+                    "Removed from Cart",
+                    name +
+                    " has been removed."
+                );
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   CHECKOUT
+========================================= */
+
+var checkoutButton =
+    document.getElementById(
+        "checkoutButton"
+    );
+
+
+checkoutButton.addEventListener(
+    "click",
+    function() {
+
+
+        if (
+            !cart ||
+            cart.length === 0
+        ) {
+
+            showToast(
+                "Your Cart is Empty",
+                "Add a product before checkout."
+            );
+
+            return;
+
+        }
+
+
+        saveCart();
+
+
+        showToast(
+            "Checkout Ready",
+            "Taking you to secure checkout..."
+        );
+
+
+        setTimeout(
+            function() {
+
+                window.location.href =
+                    "checkout.html";
+
+            },
+            700
+        );
+
+    }
+);
+
+
+/* =========================================
+   START
+========================================= */
+
+renderCart();
+
+</script>
+<link rel="stylesheet" href="bottom-nav.css">
+<script src="bottom-nav.js"></script>
+
+</body>
+
+</html>

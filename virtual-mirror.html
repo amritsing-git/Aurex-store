@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AUREX Virtual AI Mirror</title>
+
+<script type="module"
+src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:radial-gradient(circle at top,#202020,#050505 75%);
+color:#fff;
+overflow-x:hidden;
+}
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 6%;
+border-bottom:1px solid #222;
+background:#080808;
+}
+
+.logo{
+font-size:24px;
+font-weight:900;
+letter-spacing:4px;
+}
+
+.title{
+font-size:10px;
+letter-spacing:2px;
+color:#888;
+}
+
+main{
+width:min(1100px,94%);
+margin:auto;
+padding:28px 0 60px;
+}
+
+.hero{
+text-align:center;
+margin-bottom:24px;
+}
+
+.hero h1{
+font-size:42px;
+}
+
+.hero p{
+margin-top:10px;
+color:#999;
+}
+
+.card{
+background:linear-gradient(145deg,#171717,#090909);
+border:1px solid #2a2a2a;
+border-radius:22px;
+padding:22px;
+margin-top:18px;
+box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+
+.gender-row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-top:18px;
+}
+
+.gender-btn{
+padding:15px;
+background:#111;
+color:#fff;
+border:1px solid #333;
+border-radius:12px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.gender-btn.active{
+background:#fff;
+color:#000;
+}
+
+.skin-row{
+display:flex;
+gap:10px;
+margin-top:18px;
+}
+
+.skin-btn{
+width:42px;
+height:42px;
+border-radius:50%;
+border:3px solid transparent;
+cursor:pointer;
+}
+
+.skin-btn.active{
+border-color:#fff;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-top:18px;
+}
+
+.input-box{
+background:#101010;
+border:1px solid #333;
+border-radius:12px;
+padding:14px;
+}
+
+.input-box label{
+display:block;
+font-size:11px;
+color:#888;
+margin-bottom:8px;
+}
+
+.input-box input{
+width:100%;
+background:none;
+border:none;
+outline:none;
+color:#fff;
+font-size:22px;
+font-weight:bold;
+}
+
+#create{
+width:100%;
+margin-top:20px;
+padding:16px;
+background:#fff;
+color:#000;
+border:none;
+border-radius:12px;
+font-weight:900;
+cursor:pointer;
+}
+
+.ai-result{
+display:none;
+margin-top:18px;
+padding:18px;
+border-radius:16px;
+background:linear-gradient(145deg,#151515,#090909);
+border:1px solid #2c2c2c;
+}
+
+.ai-result.show{
+display:block;
+animation:pop .35s ease;
+}
+
+@keyframes pop{
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+.ai-label{
+font-size:9px;
+letter-spacing:2px;
+color:#888;
+}
+
+.measurement-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:16px;
+}
+
+.measurement-grid div{
+background:#101010;
+padding:12px;
+border-radius:10px;
+border:1px solid #222;
+}
+
+.measurement-grid span{
+display:block;
+font-size:8px;
+letter-spacing:1px;
+color:#777;
+margin-bottom:5px;
+}
+
+.fit-result{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:14px;
+padding:14px;
+border-radius:12px;
+background:#171717;
+border:1px solid #333;
+}
+
+.size-badge{
+width:50px;
+height:50px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#fff;
+color:#000;
+font-weight:900;
+border-radius:12px;
+font-size:22px;
+}
+
+.viewer-box{
+position:relative;
+margin-top:18px;
+}
+
+#viewer{
+width:100%;
+height:560px;
+border-radius:18px;
+background:radial-gradient(circle,#242424,#090909);
+}
+
+#scanOverlay{
+position:absolute;
+inset:0;
+display:none;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+background:rgba(0,0,0,.82);
+backdrop-filter:blur(6px);
+border-radius:18px;
+z-index:5;
+}
+
+.scan-circle{
+width:90px;
+height:90px;
+border:3px solid rgba(255,255,255,.2);
+border-top-color:#fff;
+border-radius:50%;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+to{transform:rotate(360deg);}
+}
+
+#scanOverlay h3{
+margin-top:18px;
+font-size:22px;
+}
+
+#scanOverlay p{
+margin-top:8px;
+color:#aaa;
+font-size:13px;
+}
+
+#tryOnPreview{
+display:none;
+width:100%;
+height:560px;
+object-fit:contain;
+border-radius:18px;
+background:radial-gradient(circle,#242424,#090909);
+}
+
+.controls{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:16px;
+}
+
+.controls button,
+#tryOnBtn{
+padding:15px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+font-weight:900;
+}
+
+.controls button{
+background:#111;
+color:#fff;
+border:1px solid #333;
+}
+
+#tryOnBtn{
+width:100%;
+margin-top:12px;
+background:linear-gradient(135deg,#fff,#d8d8d8);
+color:#000;
+}
+
+@media(max-width:700px){
+
+.grid{
+grid-template-columns:1fr;
+}
+
+#viewer,
+#tryOnPreview{
+height:470px;
+}
+
+.hero h1{
+font-size:34px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">AUREX</div>
+
+<div class="title">VIRTUAL AI MIRROR</div>
+
+</header>
+
+<main>
+
+<div class="hero">
+
+<h1>Try Before You Buy</h1>
+
+<p>India's First Student-Built AI Virtual Mirror</p>
+
+</div>
+
+<div class="card">
+
+<h2>Create Your Avatar</h2>
+
+<div class="gender-row">
+
+<button id="maleBtn" class="gender-btn active">♂ Male</button>
+
+<button id="femaleBtn" class="gender-btn">♀ Female</button>
+
+</div>
+
+<div class="skin-row">
+
+<button class="skin-btn active" style="background:#f0bd96"></button>
+
+<button class="skin-btn" style="background:#d49a72"></button>
+
+<button class="skin-btn" style="background:#a86d48"></button>
+
+<button class="skin-btn" style="background:#633d2c"></button>
+
+</div>
+
+<div class="grid">
+
+<div class="input-box">
+<label>Height (cm)</label>
+<input id="height" type="number" value="170">
+</div>
+
+<div class="input-box">
+<label>Weight (kg)</label>
+<input id="weight" type="number" value="65">
+</div>
+
+<div class="input-box">
+<label>Waist (in)</label>
+<input id="waist" type="number" value="32">
+</div>
+
+</div>
+
+<button id="create">CREATE MY AVATAR</button>
+
+<div id="aiResult" class="ai-result">
+
+<span class="ai-label">AUREX AI ANALYSIS</span>
+
+<div class="measurement-grid">
+
+<div><span>HEIGHT</span><strong id="resultHeight">170 cm</strong></div>
+
+<div><span>WEIGHT</span><strong id="resultWeight">65 kg</strong></div>
+
+<div><span>WAIST</span><strong id="resultWaist">32 in</strong></div>
+
+<div><span>PROFILE</span><strong id="resultProfile">Balanced</strong></div>
+
+</div>
+
+<div class="fit-result">
+
+<div>
+
+<span style="font-size:9px;color:#888;">PERFECT SIZE</span>
+
+<h3 id="resultFit">Regular Fit</h3>
+
+</div>
+
+<div id="resultSize" class="size-badge">32</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>AUREX Classic Black Shirt • ₹399</h2>
+
+<div class="viewer-box">
+
+<model-viewer
+id="viewer"
+
+src="male_character_7.glb"
+
+environment-image="neutral"
+
+tone-mapping="commerce"
+
+camera-controls
+
+auto-rotate
+
+shadow-intensity="1"
+
+exposure="1.1"
+
+camera-orbit="8deg 78deg 2.4m"
+
+field-of-view="18deg"
+
+reveal="auto"
+
+interaction-prompt="none">
+
+</model-viewer>
+
+<div id="scanOverlay">
+
+<div class="scan-circle"></div>
+
+<h3>AUREX AI Scanning...</h3>
+
+<p>Generating your virtual try-on</p>
+
+</div>
+
+<img
+id="tryOnPreview"
+src="ms_px45o_512_996122836.jpg"
+alt="AUREX Shirt">
+
+</div>
+
+<div class="controls">
+
+<button id="rotateBtn">360° Rotate</button>
+
+<button id="resetBtn">Reset View</button>
+
+</div>
+
+<button id="tryOnBtn">✨ AI TRY-ON</button>
+
+</div>
+
+</main>
+<script>
+
+// @ts-nocheck
+
+// ==========================================
+// ELEMENTS
+// ==========================================
+
+const viewer=document.getElementById("viewer");
+
+const maleBtn=document.getElementById("maleBtn");
+const femaleBtn=document.getElementById("femaleBtn");
+
+const skinButtons=document.querySelectorAll(".skin-btn");
+
+const heightInput=document.getElementById("height");
+const weightInput=document.getElementById("weight");
+const waistInput=document.getElementById("waist");
+
+const createBtn=document.getElementById("create");
+
+const rotateBtn=document.getElementById("rotateBtn");
+const resetBtn=document.getElementById("resetBtn");
+
+const tryOnBtn=document.getElementById("tryOnBtn");
+
+const aiResult=document.getElementById("aiResult");
+
+const resultHeight=document.getElementById("resultHeight");
+const resultWeight=document.getElementById("resultWeight");
+const resultWaist=document.getElementById("resultWaist");
+const resultProfile=document.getElementById("resultProfile");
+const resultFit=document.getElementById("resultFit");
+const resultSize=document.getElementById("resultSize");
+
+const scanOverlay=document.getElementById("scanOverlay");
+const tryOnPreview=document.getElementById("tryOnPreview");
+
+let tryOnActive=false;
+let currentGender="male";
+
+// ==========================================
+// GENDER
+// ==========================================
+
+maleBtn.onclick=function(){
+
+currentGender="male";
+
+maleBtn.classList.add("active");
+femaleBtn.classList.remove("active");
+
+viewer.src="human_body_base_mesh_male.glb";
+
+};
+
+femaleBtn.onclick=function(){
+
+currentGender="female";
+
+femaleBtn.classList.add("active");
+maleBtn.classList.remove("active");
+
+// Future female avatar
+viewer.src="human_body_base_mesh_male.glb";
+
+};
+
+// ==========================================
+// SKIN BUTTONS
+// ==========================================
+
+skinButtons.forEach(function(btn){
+
+btn.onclick=function(){
+
+skinButtons.forEach(function(b){
+
+b.classList.remove("active");
+
+});
+
+btn.classList.add("active");
+
+};
+
+});
+
+// ==========================================
+// AI ANALYSIS
+// ==========================================
+
+function analyzeBody(){
+
+const height=Number(heightInput.value)||170;
+const weight=Number(weightInput.value)||65;
+const waist=Number(waistInput.value)||32;
+
+const bmi=weight/Math.pow(height/100,2);
+
+let profile="Balanced Body";
+let fit="Regular Fit";
+let size=32;
+
+if(bmi<18.5)profile="Slim Body";
+if(bmi>=25&&bmi<30)profile="Broad Body";
+if(bmi>=30)profile="Heavy Body";
+
+if(waist<=29){
+fit="Slim Fit";
+size=30;
+}
+else if(waist<=32){
+fit="Regular Fit";
+size=32;
+}
+else if(waist<=35){
+fit="Regular Fit";
+size=34;
+}
+else if(waist<=38){
+fit="Relaxed Fit";
+size=36;
+}
+else{
+fit="Comfort Fit";
+size=38;
+}
+
+resultHeight.textContent=height+" cm";
+resultWeight.textContent=weight+" kg";
+resultWaist.textContent=waist+" in";
+resultProfile.textContent=profile;
+resultFit.textContent=fit;
+resultSize.textContent=size;
+
+aiResult.classList.add("show");
+
+// Avatar scale (demo visible effect)
+
+const y=0.75+((height-150)/40)*0.7;
+const x=0.70+((weight-40)/60)*0.8;
+const z=0.75+((waist-26)/14)*0.7;
+
+viewer.setAttribute(
+"scale",
+`${x.toFixed(2)} ${y.toFixed(2)} ${z.toFixed(2)}`
+);
+
+const distance=(2.4-(height-170)/80).toFixed(2);
+
+viewer.cameraOrbit=`15deg 72deg ${distance}m`;
+
+}
+
+// ==========================================
+// CREATE
+// ==========================================
+
+createBtn.onclick=function(){
+
+analyzeBody();
+
+setTimeout(function(){
+
+aiResult.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+},150);
+
+};
+
+// ==========================================
+// ROTATE
+// ==========================================
+
+rotateBtn.onclick=function(){
+
+viewer.autoRotate=!viewer.autoRotate;
+
+rotateBtn.textContent=
+viewer.autoRotate?
+"⏸ Stop Rotate":
+"360° Rotate";
+
+};
+
+// ==========================================
+// RESET
+// ==========================================
+
+resetBtn.onclick=function(){
+
+heightInput.value=170;
+weightInput.value=65;
+waistInput.value=32;
+
+viewer.setAttribute("scale","1 1 1");
+
+viewer.cameraOrbit="15deg 72deg 2.1m";
+
+viewer.fieldOfView="20deg";
+
+viewer.autoRotate=true;
+
+rotateBtn.textContent="⏸ Stop Rotate";
+
+tryOnPreview.style.display="none";
+viewer.style.display="block";
+
+tryOnActive=false;
+tryOnBtn.textContent="✨ AI TRY-ON";
+
+aiResult.classList.remove("show");
+
+};
+
+// ==========================================
+// AI TRY-ON SCAN
+// ==========================================
+
+tryOnBtn.onclick=function(){
+
+if(!tryOnActive){
+
+scanOverlay.style.display="flex";
+
+setTimeout(function(){
+
+scanOverlay.style.display="none";
+
+viewer.style.display="none";
+
+tryOnPreview.style.display="block";
+
+tryOnBtn.textContent="↩ Back to 3D Avatar";
+
+tryOnActive=true;
+
+},2000);
+
+}else{
+
+tryOnPreview.style.display="none";
+
+viewer.style.display="block";
+
+tryOnBtn.textContent="✨ AI TRY-ON";
+
+tryOnActive=false;
+
+}
+
+};
+
+// ==========================================
+// MODEL READY
+// ==========================================
+
+viewer.addEventListener("load",function(){
+
+viewer.autoRotate=true;
+
+rotateBtn.textContent="⏸ Stop Rotate";
+
+console.log("AUREX AI MIRROR READY");
+
+});
+
+// ==========================================
+// START
+// ==========================================
+
+viewer.autoRotate=true;
+rotateBtn.textContent="⏸ Stop Rotate";
+
+console.log("AUREX VIRTUAL AI MIRROR LOADED");
+
+</script>
+
+</body>
+</html>
+<script>
+
+// ==========================================
+// AUREX V2 - DEMO WOW FEATURES
+// ==========================================
+
+// Blue HUD scan flash
+function hudScan(){
+
+scanOverlay.style.display="flex";
+
+scanOverlay.querySelector("h3").textContent="AUREX AI SCANNING";
+
+scanOverlay.querySelector("p").textContent="Reading body proportions...";
+
+setTimeout(function(){
+
+scanOverlay.querySelector("p").textContent="Matching garment geometry...";
+
+},700);
+
+setTimeout(function(){
+
+scanOverlay.querySelector("p").textContent="Rendering virtual fit...";
+
+},1400);
+
+}
+
+// Fit meter animation
+function animateFitMeter(){
+
+const meter=document.querySelector(".meter-fill");
+
+if(!meter)return;
+
+meter.style.width="0%";
+
+setTimeout(function(){
+
+meter.style.transition="1.1s ease";
+meter.style.width="82%";
+
+},100);
+
+}
+
+// ==========================================
+// IMPROVED CREATE
+// ==========================================
+
+const oldCreate=createBtn.onclick;
+
+createBtn.onclick=function(){
+
+if(oldCreate) oldCreate();
+
+animateFitMeter();
+
+showToast("⚡ AI Body Profile Created");
+
+};
+
+// ==========================================
+// BETTER TRY-ON
+// ==========================================
+
+const oldTryOn=tryOnBtn.onclick;
+
+tryOnBtn.onclick=function(){
+
+if(!active){
+
+hudScan();
+
+setTimeout(function(){
+
+scanOverlay.style.display="none";
+
+viewer.style.display="none";
+
+tryOnPreview.style.display="block";
+
+tryOnBtn.textContent="↩ Back to Avatar";
+
+showToast("✨ Virtual Try-On Complete");
+
+active=true;
+
+},2200);
+
+}else{
+
+tryOnPreview.style.display="none";
+
+viewer.style.display="block";
+
+tryOnBtn.textContent="✨ AI TRY-ON";
+
+active=false;
+
+showToast("3D Avatar Restored");
+
+}
+
+};
+
+// ==========================================
+// VOICE DEMO IMPROVED
+// ==========================================
+
+voiceBtn.onclick=function(){
+
+if(!("webkitSpeechRecognition" in window)){
+
+showToast("Voice unavailable");
+
+return;
+
+}
+
+const recognition=new webkitSpeechRecognition();
+
+recognition.lang="hi-IN";
+
+recognition.start();
+
+showToast("🎤 Speak now...");
+
+recognition.onresult=function(event){
+
+const text=event.results[0][0].transcript.toLowerCase();
+
+if(text.includes("kaali")||text.includes("black")){
+
+showToast("Black shirt selected");
+
+tryOnBtn.click();
+
+}
+else if(text.includes("rotate")){
+
+viewer.autoRotate=true;
+
+showToast("Avatar rotating");
+
+}
+else{
+
+showToast("Command: "+text);
+
+}
+
+};
+
+};
+
+// ==========================================
+// PREMIUM ENTRY
+// ==========================================
+
+setTimeout(function(){
+
+showToast("🚀 AUREX AI Online");
+
+},1800);
+
+</script>
+<script>
+
+// ==========================================
+// AUREX V2 FINAL POLISH
+// ==========================================
+
+// Hologram pulse every few seconds
+setInterval(function(){
+
+if(viewer.style.display!=="none"){
+
+viewer.style.filter="drop-shadow(0 0 22px rgba(0,183,255,.55))";
+
+setTimeout(function(){
+
+viewer.style.filter="none";
+
+},650);
+
+}
+
+},5000);
+
+// ==========================================
+// RAMP WALK DEMO
+// Double tap viewer
+// ==========================================
+
+let lastTap=0;
+
+viewer.addEventListener("click",function(){
+
+const now=Date.now();
+
+if(now-lastTap<320){
+
+let step=0;
+
+const walk=setInterval(function(){
+
+step++;
+
+viewer.cameraOrbit=
+`${8+step}deg 78deg 2.2m`;
+
+if(step>10){
+
+clearInterval(walk);
+
+viewer.cameraOrbit=
+"8deg 78deg 2.4m";
+
+}
+
+},45);
+
+showToast("🚶 Ramp Walk Demo");
+
+}
+
+lastTap=now;
+
+});
+
+// ==========================================
+// COMPARISON MODE
+// Long press AI TRY-ON
+// ==========================================
+
+let holdTimer;
+
+tryOnBtn.addEventListener("touchstart",function(){
+
+holdTimer=setTimeout(function(){
+
+tryOnPreview.style.display="block";
+
+tryOnPreview.style.width="49%";
+
+tryOnPreview.style.float="left";
+
+viewer.style.width="49%";
+
+viewer.style.float="right";
+
+viewer.style.display="block";
+
+showToast("⚖ Comparison Mode");
+
+},800);
+
+});
+
+tryOnBtn.addEventListener("touchend",function(){
+
+clearTimeout(holdTimer);
+
+});
+
+// ==========================================
+// RESET LAYOUT
+// ==========================================
+
+function resetLayout(){
+
+viewer.style.width="100%";
+
+viewer.style.float="none";
+
+tryOnPreview.style.width="100%";
+
+tryOnPreview.style.float="none";
+
+}
+
+resetBtn.addEventListener("click",resetLayout);
+
+// ==========================================
+// DEMO STARTUP MESSAGE
+// ==========================================
+
+setTimeout(function(){
+
+showToast("🎯 Demo Mode Activated");
+
+},3200);
+
+// ==========================================
+// FUTURE FEATURES CARD (Console)
+// ==========================================
+
+console.log(
+`
+AUREX ROADMAP
+
+✔ AI Sizing
+✔ 3D Avatar
+✔ Virtual Try-On Demo
+✔ Voice Shopping
+✔ JARVIS Scan
+
+NEXT:
+• Real Cloth Fitting
+• Live Color Switch
+• Shoe Try-On
+• Comparison Mode Pro
+`
+);
+
+</script>

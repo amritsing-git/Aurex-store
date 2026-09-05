@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>About — AUREX</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f6f6f6;
+    color: #111;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+
+    border-bottom: 1px solid #e8e8e8;
+
+    padding: 16px 6%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: 900;
+    letter-spacing: 4px;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 25px;
+}
+
+.navbar nav a {
+    color: #111;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: 0.25s;
+}
+
+.navbar nav a:hover {
+    opacity: 0.45;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.about-hero {
+
+    min-height: 570px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 80px 20px;
+
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            #ffffff 0%,
+            #eeeeee 42%,
+            #dcdcdc 100%
+        );
+}
+
+.about-hero::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    border: 1px solid rgba(0,0,0,0.08);
+
+    border-radius: 50%;
+
+    animation: rotateRing 18s linear infinite;
+}
+
+.about-hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 620px;
+    height: 620px;
+
+    border: 1px solid rgba(0,0,0,0.05);
+
+    border-radius: 50%;
+
+    animation: rotateRingReverse 25s linear infinite;
+}
+
+@keyframes rotateRing {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+@keyframes rotateRingReverse {
+
+    from {
+        transform: rotate(360deg);
+    }
+
+    to {
+        transform: rotate(0deg);
+    }
+
+}
+
+.about-hero-content {
+
+    position: relative;
+    z-index: 2;
+
+    max-width: 850px;
+}
+
+.about-label {
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 5px;
+
+    color: #666;
+
+    margin-bottom: 20px;
+}
+
+.about-hero h1 {
+
+    margin: 0;
+
+    font-size: clamp(55px, 11vw, 120px);
+
+    letter-spacing: 12px;
+
+    font-weight: 900;
+
+    line-height: 0.9;
+}
+
+.about-hero p {
+
+    max-width: 620px;
+
+    margin: 30px auto 0;
+
+    color: #666;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================
+   COMMON
+========================= */
+
+.about-section {
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    padding: 95px 25px;
+}
+
+.section-label {
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    font-weight: bold;
+
+    color: #777;
+
+    margin-bottom: 14px;
+}
+
+.about-section h2 {
+
+    margin: 0 0 20px;
+
+    font-size: 38px;
+
+    letter-spacing: -1px;
+}
+
+.about-section p {
+
+    color: #666;
+
+    line-height: 1.9;
+
+    font-size: 15px;
+
+    max-width: 760px;
+}
+
+
+/* =========================
+   STORY
+========================= */
+
+.story-section {
+
+    background: #fff;
+
+    max-width: none;
+}
+
+.story-grid {
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: 1.2fr 0.8fr;
+
+    gap: 80px;
+
+    align-items: center;
+}
+
+.story-number {
+
+    font-size: 150px;
+
+    font-weight: 900;
+
+    color: #eeeeee;
+
+    line-height: 1;
+
+    text-align: right;
+
+    user-select: none;
+}
+
+
+/* =========================
+   VISION
+========================= */
+
+.vision-section {
+
+    text-align: center;
+
+    background: #f6f6f6;
+}
+
+.vision-section p {
+
+    margin-left: auto;
+
+    margin-right: auto;
+
+    font-size: 17px;
+
+    max-width: 720px;
+}
+
+.vision-line {
+
+    width: 55px;
+
+    height: 2px;
+
+    background: #111;
+
+    margin: 30px auto;
+}
+
+
+/* =========================
+   VALUES
+========================= */
+
+.values-section {
+
+    max-width: none;
+
+    background: #0d0d0d;
+
+    color: #fff;
+
+    padding-left: 6%;
+
+    padding-right: 6%;
+}
+
+.values-inner {
+
+    max-width: 1100px;
+
+    margin: auto;
+}
+
+.values-section .section-label {
+
+    color: #777;
+}
+
+.values-section h2 {
+
+    margin-bottom: 50px;
+}
+
+.values-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+.value-card {
+
+    border: 1px solid #2d2d2d;
+
+    padding: 32px 28px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #171717,
+            #101010
+        );
+
+    transition: 0.3s;
+}
+
+.value-card:hover {
+
+    transform: translateY(-7px);
+
+    border-color: #555;
+}
+
+.value-number {
+
+    font-size: 11px;
+
+    color: #666;
+
+    margin-bottom: 35px;
+
+    letter-spacing: 2px;
+}
+
+.value-card h3 {
+
+    margin: 0 0 13px;
+
+    font-size: 20px;
+}
+
+.value-card p {
+
+    color: #888;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+
+    margin: 0;
+}
+
+
+/* =========================
+   EXPERIENCE STRIP
+========================= */
+
+.experience {
+
+    background: #fff;
+
+    padding: 80px 20px;
+
+    text-align: center;
+}
+
+.experience-label {
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    color: #777;
+
+    font-weight: bold;
+}
+
+.experience h2 {
+
+    font-size: 36px;
+
+    margin: 15px 0;
+}
+
+.experience p {
+
+    max-width: 650px;
+
+    margin: auto;
+
+    color: #666;
+
+    line-height: 1.8;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   CTA
+========================= */
+
+.about-cta {
+
+    text-align: center;
+
+    padding: 105px 20px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #ffffff,
+            #eeeeee
+        );
+}
+
+.about-cta h2 {
+
+    font-size: 40px;
+
+    margin: 0 0 12px;
+}
+
+.about-cta p {
+
+    color: #666;
+
+    margin-bottom: 30px;
+}
+
+.cta-button {
+
+    display: inline-block;
+
+    background: #111;
+
+    color: #fff;
+
+    text-decoration: none;
+
+    padding: 15px 30px;
+
+    border-radius: 6px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    transition: 0.25s;
+}
+
+.cta-button:hover {
+
+    transform: translateY(-2px);
+
+    opacity: 0.82;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.about-footer {
+
+    background: #0b0b0b;
+
+    color: #fff;
+
+    text-align: center;
+
+    padding: 42px 20px;
+}
+
+.footer-logo {
+
+    font-size: 23px;
+
+    font-weight: 900;
+
+    letter-spacing: 4px;
+}
+
+.about-footer p {
+
+    color: #777;
+
+    font-size: 12px;
+}
+
+.footer-links {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 25px;
+
+    margin: 22px 0;
+}
+
+.footer-links a {
+
+    color: #999;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    transition: 0.2s;
+}
+
+.footer-links a:hover {
+
+    color: #fff;
+}
+
+.copyright {
+
+    margin-top: 22px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .navbar {
+
+        padding: 15px 20px;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .navbar nav {
+
+        gap: 14px;
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+    }
+
+    .navbar nav a {
+
+        font-size: 12px;
+    }
+
+    .about-hero {
+
+        min-height: 470px;
+
+        padding: 60px 20px;
+    }
+
+    .about-hero::before {
+
+        width: 280px;
+
+        height: 280px;
+    }
+
+    .about-hero::after {
+
+        width: 400px;
+
+        height: 400px;
+    }
+
+    .about-hero h1 {
+
+        font-size: 55px;
+
+        letter-spacing: 6px;
+    }
+
+    .about-hero p {
+
+        font-size: 14px;
+    }
+
+    .about-section {
+
+        padding: 65px 20px;
+    }
+
+    .about-section h2 {
+
+        font-size: 29px;
+    }
+
+    .story-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+    }
+
+    .story-number {
+
+        font-size: 85px;
+
+        text-align: left;
+    }
+
+    .values-section {
+
+        padding-left: 20px;
+
+        padding-right: 20px;
+    }
+
+    .values-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .experience {
+
+        padding: 65px 20px;
+    }
+
+    .experience h2 {
+
+        font-size: 29px;
+    }
+
+    .about-cta {
+
+        padding: 75px 20px;
+    }
+
+    .about-cta h2 {
+
+        font-size: 30px;
+    }
+
+    .footer-links {
+
+        gap: 18px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<header class="navbar">
+
+    <div class="logo">
+        AUREX
+    </div>
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="products.html">
+            Products
+        </a>
+
+        <a href="about.html">
+            About
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="about-hero">
+
+    <div class="about-hero-content">
+
+        <div class="about-label">
+            THE AUREX STORY
+        </div>
+
+        <h1>
+            AUREX
+        </h1>
+
+        <p>
+            A modern lifestyle brand built around
+            design, technology and the future.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- STORY -->
+
+<section class="about-section story-section">
+
+    <div class="story-grid">
+
+        <div>
+
+            <div class="section-label">
+                OUR STORY
+            </div>
+
+            <h2>
+                Built for the next generation.
+            </h2>
+
+            <p>
+                AUREX was created with a simple idea:
+                products should feel as exciting as
+                the future they belong to.
+            </p>
+
+            <p>
+                We focus on modern products,
+                clean design and experiences that
+                make everyday lifestyle feel
+                different.
+            </p>
+
+        </div>
+
+        <div class="story-number">
+            01
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- VISION -->
+
+<section class="about-section vision-section">
+
+    <div class="section-label">
+        OUR VISION
+    </div>
+
+    <h2>
+        Future in Motion.
+    </h2>
+
+    <div class="vision-line"></div>
+
+    <p>
+        Our vision is to build AUREX into a
+        modern digital-first brand where
+        premium products, futuristic design
+        and seamless shopping come together
+        in one experience.
+    </p>
+
+</section>
+
+
+<!-- VALUES -->
+
+<section class="about-section values-section">
+
+    <div class="values-inner">
+
+        <div class="section-label">
+            WHAT WE BELIEVE
+        </div>
+
+        <h2>
+            The AUREX Standard.
+        </h2>
+
+        <div class="values-grid">
+
+            <div class="value-card">
+
+                <div class="value-number">
+                    01
+                </div>
+
+                <h3>
+                    Design
+                </h3>
+
+                <p>
+                    Every part of the AUREX
+                    experience should feel clean,
+                    modern and intentional.
+                </p>
+
+            </div>
+
+
+            <div class="value-card">
+
+                <div class="value-number">
+                    02
+                </div>
+
+                <h3>
+                    Innovation
+                </h3>
+
+                <p>
+                    We continuously explore new
+                    technology and new ways to
+                    improve the customer experience.
+                </p>
+
+            </div>
+
+
+            <div class="value-card">
+
+                <div class="value-number">
+                    03
+                </div>
+
+                <h3>
+                    Experience
+                </h3>
+
+                <p>
+                    From discovering a product to
+                    placing an order, every interaction
+                    should feel effortless.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- EXPERIENCE -->
+
+<section class="experience">
+
+    <div class="experience-label">
+        MORE THAN A STORE
+    </div>
+
+    <h2>
+        Built around the experience.
+    </h2>
+
+    <p>
+        AUREX is designed to bring products,
+        technology and a premium digital
+        shopping experience together.
+    </p>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="about-cta">
+
+    <h2>
+        Discover AUREX.
+    </h2>
+
+    <p>
+        Explore the latest products and
+        experience the future in motion.
+    </p>
+
+    <a
+    href="products.html"
+    class="cta-button">
+
+        Explore Products
+
+    </a>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer class="about-footer">
+
+    <div class="footer-logo">
+        AUREX
+    </div>
+
+    <p>
+        Future in Motion.
+    </p>
+
+    <div class="footer-links">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="products.html">
+            Products
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
+
+        <a href="cart.html">
+            Cart
+        </a>
+
+    </div>
+
+    <p class="copyright">
+        © 2026 AUREX. All Rights Reserved.
+    </p>
+
+</footer>
+<link rel="stylesheet" href="bottom-nav.css">
+<script src="bottom-nav.js"></script>
+
+</body>
+
+</html>

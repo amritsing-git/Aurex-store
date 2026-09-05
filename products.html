@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+< lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>AUREX — Shop</title>
+<script src="products-data.js"></script>
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f7f7f7;
+    color:#111;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.store-header{
+    background:#fff;
+    border-bottom:1px solid #e8e8e8;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.top-bar{
+    max-width:1200px;
+    margin:auto;
+    padding:16px 22px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:900;
+    letter-spacing:4px;
+}
+
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.header-actions a,
+.header-actions button{
+    color:#111;
+    text-decoration:none;
+    background:none;
+    border:0;
+    font-size:20px;
+    cursor:pointer;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-wrapper{
+    max-width:1200px;
+    margin:auto;
+    padding:0 22px 16px;
+}
+
+.search-box{
+    width:100%;
+    position:relative;
+}
+
+#productSearch{
+    width:100%;
+    height:48px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    background:#f7f7f7;
+    padding:0 48px 0 17px;
+    outline:none;
+    font-size:14px;
+}
+
+#productSearch:focus{
+    border-color:#111;
+    background:#fff;
+}
+
+.search-icon{
+    position:absolute;
+    right:16px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:18px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.shop-main{
+    max-width:1200px;
+    margin:auto;
+    padding:35px 22px 70px;
+}
+
+.shop-heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom:25px;
+    gap:15px;
+}
+
+.shop-heading h1{
+    font-size:36px;
+    margin-bottom:7px;
+}
+
+.shop-heading p{
+    color:#777;
+    font-size:14px;
+}
+
+.product-count{
+    color:#777;
+    font-size:13px;
+    white-space:nowrap;
+}
+
+/* =========================
+   CATEGORY FILTER
+========================= */
+
+.category-row{
+    display:flex;
+    gap:9px;
+    overflow-x:auto;
+    padding-bottom:5px;
+    margin-bottom:28px;
+}
+
+.category-row::-webkit-scrollbar{
+    display:none;
+}
+
+.category-btn{
+    border:1px solid #ddd;
+    background:#fff;
+    padding:10px 17px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:bold;
+    cursor:pointer;
+    white-space:nowrap;
+}
+
+.category-btn.active{
+    background:#111;
+    color:#fff;
+    border-color:#111;
+}
+
+/* =========================
+   PRODUCT GRID
+========================= */
+
+.products-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.product-card{
+    background:#fff;
+    border:1px solid #e6e6e6;
+    border-radius:14px;
+    overflow:hidden;
+    text-decoration:none;
+    color:#111;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.product-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+}
+
+.product-image{
+    width:100%;
+    height:270px;
+    background:#f1f1f1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.product-image img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    transition:transform .3s ease;
+}
+
+.product-card:hover .product-image img{
+    transform:scale(1.04);
+}
+
+.product-info{
+    padding:15px;
+}
+
+.product-category{
+    font-size:10px;
+    color:#999;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:7px;
+}
+
+.product-name{
+    font-size:15px;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.product-price{
+    font-size:17px;
+    font-weight:900;
+}
+
+.old-price{
+    color:#999;
+    text-decoration:line-through;
+    font-size:12px;
+    margin-right:5px;
+    font-weight:normal;
+}
+
+.product-view{
+    display:block;
+    margin-top:13px;
+    padding:10px;
+    text-align:center;
+    background:#111;
+    color:#fff;
+    border-radius:7px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty-state{
+    display:none;
+    text-align:center;
+    padding:70px 20px;
+    background:#fff;
+    border:1px solid #e5e5e5;
+    border-radius:15px;
+}
+
+.empty-state.show{
+    display:block;
+}
+
+.empty-state-icon{
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.empty-state h2{
+    margin-bottom:8px;
+}
+
+.empty-state p{
+    color:#777;
+    font-size:14px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.shop-footer{
+    background:#111;
+    color:#fff;
+    text-align:center;
+    padding:35px 20px;
+}
+
+.footer-logo{
+    font-size:23px;
+    font-weight:900;
+    letter-spacing:3px;
+}
+
+.shop-footer p{
+    color:#aaa;
+    font-size:12px;
+    margin-top:8px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px){
+
+    .products-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+
+@media(max-width:650px){
+
+    .top-bar{
+        padding:14px 16px;
+    }
+
+    .search-wrapper{
+        padding:0 16px 14px;
+    }
+
+    .shop-main{
+        padding:25px 16px 55px;
+    }
+
+    .shop-heading h1{
+        font-size:28px;
+    }
+
+    .products-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:12px;
+    }
+
+    .product-image{
+        height:210px;
+    }
+
+    .product-info{
+        padding:12px;
+    }
+
+    .product-name{
+        font-size:13px;
+    }
+
+    .product-price{
+        font-size:15px;
+    }
+
+    .product-view{
+        font-size:10px;
+        padding:9px;
+    }
+
+}
+
+@media(max-width:380px){
+
+    .products-grid{
+        grid-template-columns:1fr;
+    }
+
+    .product-image{
+        height:280px;
+    }
+
+}
+/* =========================================
+   AUREX PART 3 — PREMIUM PRODUCT CARDS
+========================================= */
+
+.product-card{
+    position:relative;
+    display:block;
+    text-decoration:none;
+    color:#111;
+    background:#fff;
+    border:1px solid #e7e7e7;
+    border-radius:16px;
+    overflow:hidden;
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
+
+.product-card:hover{
+    transform:translateY(-6px);
+    border-color:#d2d2d2;
+    box-shadow:0 18px 45px rgba(0,0,0,.10);
+}
+
+.product-image{
+    position:relative;
+    width:100%;
+    aspect-ratio:1/1;
+    background:#f5f5f5;
+    overflow:hidden;
+}
+
+.product-image img{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:contain;
+    transition:transform .4s ease;
+}
+
+.product-card:hover .product-image img{
+    transform:scale(1.04);
+}
+
+.product-info{
+    padding:15px;
+}
+
+.product-category{
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:#888;
+    margin-bottom:6px;
+}
+
+.product-name{
+    font-size:16px;
+    font-weight:800;
+    line-height:1.3;
+    margin-bottom:8px;
+}
+
+.product-price{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:16px;
+    font-weight:800;
+}
+
+.product-price strong{
+    font-size:17px;
+}
+
+.old-price{
+    color:#999;
+    text-decoration:line-through;
+    font-size:12px;
+    font-weight:500;
+}
+
+.discount-badge{
+    position:absolute;
+    top:12px;
+    left:12px;
+    z-index:2;
+    background:#111;
+    color:#fff;
+    padding:6px 9px;
+    border-radius:6px;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:.5px;
+}
+
+.mirror-tag{
+    display:inline-block;
+    margin-top:10px;
+    padding:6px 9px;
+    border-radius:999px;
+    background:#eefaff;
+    color:#0089c9;
+    border:1px solid #ccefff;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:.4px;
+}
+
+.product-view{
+    display:block;
+    margin-top:13px;
+    padding-top:11px;
+    border-top:1px solid #eee;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:1px;
+    color:#111;
+}
+
+@media(max-width:750px){
+
+    .product-card{
+        border-radius:13px;
+    }
+
+    .product-info{
+        padding:12px;
+    }
+
+    .product-name{
+        font-size:14px;
+    }
+
+    .product-price{
+        font-size:14px;
+    }
+
+    .product-price strong{
+        font-size:15px;
+    }
+
+    .mirror-tag{
+        font-size:8px;
+    }
+
+  }
+</style>
+
+</head>
+
+
+<>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="store-header">
+
+    <div class="top-bar">
+
+        <a
+            href="index.html"
+            style="text-decoration:none;color:#111;"
+        >
+
+            <div class="logo">
+                AUREX
+            </div>
+
+        </a>
+
+
+        <div class="header-actions">
+
+            <a href="wishlist.html">
+                ♡
+            </a>
+
+            <a href="cart.html">
+                🛒
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="search-wrapper">
+
+        <div class="search-box">
+
+            <input
+                id="productSearch"
+                type="search"
+                placeholder="Search products..."
+                autocomplete="off"
+            >
+
+            <span class="search-icon">
+                🔍
+            </span>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="shop-main">
+
+
+    <div class="shop-heading">
+
+        <div>
+
+            <h1>
+                Shop
+            </h1>
+
+            <p>
+                Discover the AUREX collection.
+            </p>
+
+        </div>
+
+
+        <div
+            id="productCount"
+            class="product-count"
+        >
+            0 Products
+        </div>
+
+    </div>
+
+
+
+    <!-- CATEGORY BUTTONS -->
+
+    <div class="category-row">
+
+        <button
+            class="category-btn active"
+            data-category="all"
+        >
+            All
+        </button>
+
+        <button
+            class="category-btn"
+            data-category="shoes"
+        >
+            Shoes
+        </button>
+
+        <button
+            class="category-btn"
+            data-category="hoodies"
+        >
+            Hoodies
+        </button>
+
+        <button
+            class="category-btn"
+            data-category="watches"
+        >
+            Watches
+        </button>
+
+        <button
+            class="category-btn"
+            data-category="headphones"
+        >
+            Headphones
+        </button>
+
+        <button
+            class="category-btn"
+            data-category="shirts"
+        >
+            Shirts
+        </button>
+
+    </div>
+
+
+
+    <!-- PRODUCTS -->
+
+    <div
+        id="productsGrid"
+        class="products-grid"
+    >
+    </div>
+
+
+
+    <!-- EMPTY -->
+
+    <div
+        id="emptyState"
+        class="empty-state"
+    >
+
+        <div class="empty-state-icon">
+            🔎
+        </div>
+
+        <h2>
+            No products found
+        </h2>
+
+        <p>
+            Try another search or category.
+        </p>
+
+    </div>
+
+
+</main>
+
+
+
+<footer class="shop-footer">
+
+    <div class="footer-logo">
+        AUREX
+    </div>
+
+    <p>
+        Future in Motion.
+    </p>
+
+    <p>
+        © 2026 AUREX. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<!-- PART 2 MEIN SCRIPT AAYEGA -->
+
+<script>
+
+// @ts-nocheck
+
+/* =========================================
+   AUREX PRODUCTS ENGINE
+========================================= */
+
+var productsGrid =
+    document.getElementById("productsGrid");
+
+var emptyState =
+    document.getElementById("emptyState");
+
+var productCount =
+    document.getElementById("productCount");
+
+var searchInput =
+    document.getElementById("productSearch");
+
+var categoryButtons =
+    document.querySelectorAll(".category-btn");
+
+
+/* =========================================
+   LOAD PRODUCTS
+========================================= */
+
+var products = [];
+
+try {
+
+    products = JSON.parse(
+        localStorage.getItem("aurexProducts") || "[]"
+    );
+
+    if (!Array.isArray(products)) {
+        products = [];
+    }
+
+} catch (error) {
+
+    products = [];
+
+}
+
+
+/* =========================================
+   DEFAULT PRODUCTS
+   Agar localStorage empty ho
+========================================= */
+
+if (products.length === 0) {
+
+    products = [
+
+        {
+            id:"shoe",
+            name:"Aether Runner X",
+            price:2499,
+            oldPrice:2999,
+            category:"shoes",
+            image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700",
+            description:"Premium AUREX performance sneakers."
+        },
+
+        {
+            id:"hoodie",
+            name:"Oversized Hoodie",
+            price:999,
+            oldPrice:1499,
+            category:"hoodies",
+            image:"https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=700",
+            description:"Comfortable oversized everyday hoodie."
+        },
+
+        {
+            id:"watch",
+            name:"Nova Watch",
+            price:3999,
+            oldPrice:4499,
+            category:"watches",
+            image:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=700",
+            description:"Minimal premium AUREX smartwatch."
+        },
+
+        {
+            id:"headphones",
+            name:"Pulse Headphones",
+            price:1799,
+            oldPrice:2199,
+            category:"headphones",
+            image:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=700",
+            description:"Immersive sound with a premium design."
+        }
+
+    ];
+
+}
+
+
+/* =========================================
+   URL SEARCH
+========================================= */
+
+var urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+var urlSearch =
+    urlParams.get("search") || "";
+
+if (urlSearch) {
+
+    searchInput.value = urlSearch;
+
+}
+
+
+/* =========================================
+   ACTIVE CATEGORY
+========================================= */
+
+var activeCategory = "all";
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(value) {
+
+    var div =
+        document.createElement("div");
+
+    div.textContent =
+        String(value ?? "");
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================
+   FORMAT PRICE
+========================================= */
+
+function formatPrice(price) {
+
+    return Number(price || 0)
+        .toLocaleString("en-IN");
+
+}
+
+
+/* =========================================
+   PRODUCT CARD
+========================================= */
+function createProductCard(product) {
+
+    var id =
+        encodeURIComponent(
+            String(product.id || "")
+        );
+
+    var name =
+        escapeHTML(
+            product.name || "AUREX Product"
+        );
+
+    var image =
+        escapeHTML(
+            product.image ||
+            "https://via.placeholder.com/700x700?text=AUREX"
+        );
+
+    var category =
+        escapeHTML(
+            product.category ||
+            "AUREX"
+        );
+
+    var price =
+        formatPrice(product.price);
+
+    var oldPriceHTML = "";
+
+    if (
+        product.oldPrice &&
+        Number(product.oldPrice) >
+        Number(product.price || 0)
+    ) {
+
+        oldPriceHTML =
+            '<span class="old-price">' +
+            '₹' +
+            formatPrice(product.oldPrice) +
+            '</span>';
+
+    }
+
+
+    var discountHTML = "";
+
+    if (
+        product.oldPrice &&
+        Number(product.oldPrice) >
+        Number(product.price || 0)
+    ) {
+
+        var discount =
+            Math.round(
+                (
+                    (
+                        Number(product.oldPrice) -
+                        Number(product.price || 0)
+                    )
+                    /
+                    Number(product.oldPrice)
+                ) * 100
+            );
+
+        discountHTML =
+            '<span class="discount-badge">' +
+            discount +
+            '% OFF' +
+            '</span>';
+
+    }
+
+
+    var mirrorHTML = "";
+
+    /*
+       Virtual Mirror sirf product ke andar
+       available rahega.
+
+       Products page par mirror automatically
+       open nahi hoga.
+    */
+
+    var clothingCategory =
+        String(
+            product.category || ""
+        ).toLowerCase();
+
+
+    if (
+        clothingCategory.includes("shirt") ||
+        clothingCategory.includes("tshirt") ||
+        clothingCategory.includes("t-shirt") ||
+        clothingCategory.includes("hoodie") ||
+        clothingCategory.includes("clothing") ||
+        clothingCategory.includes("fashion") ||
+        clothingCategory.includes("top")
+    ) {
+
+        mirrorHTML =
+            '<span class="mirror-tag">' +
+            '🪞 AI TRY-ON AVAILABLE' +
+            '</span>';
+
+    }
+
+
+    return (
+
+        '<a ' +
+
+        'href="product.html?id=' +
+        id +
+        '" ' +
+
+        'class="product-card">' +
+
+
+            '<div class="product-image">' +
+
+                discountHTML +
+
+                '<img ' +
+
+                'src="' +
+                image +
+                '" ' +
+
+                'alt="' +
+                name +
+                '" ' +
+
+                'loading="lazy" ' +
+
+                'onerror="' +
+                "this.src='https://via.placeholder.com/700x700?text=AUREX'" +
+                '">' +
+
+            '</div>' +
+
+
+            '<div class="product-info">' +
+
+                '<div class="product-category">' +
+                    category +
+                '</div>' +
+
+                '<div class="product-name">' +
+                    name +
+                '</div>' +
+
+
+                '<div class="product-price">' +
+
+                    oldPriceHTML +
+
+                    '<strong>' +
+                    '₹' +
+                    price +
+                    '</strong>' +
+
+                '</div>' +
+
+
+                mirrorHTML +
+
+
+                '<span class="product-view">' +
+                    'VIEW PRODUCT →' +
+                '</span>' +
+
+            '</div>' +
+
+        '</a>'
+
+    );
+
+}
+    
+
+
+/* =========================================
+   RENDER PRODUCTS
+========================================= */
+
+function renderProducts() {
+
+    var query =
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+    var filtered =
+        products.filter(
+            function(product) {
+
+                var name =
+                    String(
+                        product.name || ""
+                    ).toLowerCase();
+
+                var category =
+                    String(
+                        product.category || ""
+                    ).toLowerCase();
+
+                var description =
+                    String(
+                        product.description || ""
+                    ).toLowerCase();
+
+
+                var matchesSearch =
+                    !query ||
+                    name.includes(query) ||
+                    category.includes(query) ||
+                    description.includes(query);
+
+
+                var matchesCategory =
+                    activeCategory === "all" ||
+                    category === activeCategory;
+
+
+                return (
+                    matchesSearch &&
+                    matchesCategory
+                );
+
+            }
+        );
+
+
+    productsGrid.innerHTML = "";
+
+
+    if (filtered.length === 0) {
+
+        emptyState.classList.add("show");
+
+    } else {
+
+        emptyState.classList.remove("show");
+
+        var html = "";
+
+        for (
+            var i = 0;
+            i < filtered.length;
+            i++
+        ) {
+
+            html +=
+                createProductCard(
+                    filtered[i]
+                );
+
+        }
+
+        productsGrid.innerHTML =
+            html;
+
+    }
+
+
+    productCount.textContent =
+        filtered.length +
+        (
+            filtered.length === 1
+            ? " Product"
+            : " Products"
+        );
+
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+searchInput.addEventListener(
+    "input",
+    function() {
+
+        renderProducts();
+
+    }
+);
+
+
+/* =========================================
+   CATEGORY FILTER
+========================================= */
+
+for (
+    var i = 0;
+    i < categoryButtons.length;
+    i++
+) {
+
+    categoryButtons[i]
+        .addEventListener(
+            "click",
+            function() {
+
+                for (
+                    var x = 0;
+                    x < categoryButtons.length;
+                    x++
+                ) {
+
+                    categoryButtons[x]
+                        .classList
+                        .remove("active");
+
+                }
+
+
+                this.classList.add("active");
+
+
+                activeCategory =
+                    this.getAttribute(
+                        "data-category"
+                    ) || "all";
+
+
+                renderProducts();
+
+            }
+        );
+
+}
+
+
+/* =========================================
+   ENTER KEY
+========================================= */
+
+searchInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            var value =
+                searchInput.value.trim();
+
+
+            if (value) {
+
+                var newUrl =
+                    "products.html?search=" +
+                    encodeURIComponent(
+                        value
+                    );
+
+                window.history.replaceState(
+                    {},
+                    "",
+                    newUrl
+                );
+
+            } else {
+
+                window.history.replaceState(
+                    {},
+                    "",
+                    "products.html"
+                );
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   STORAGE UPDATE
+   Admin se products add/change hone par
+   page refresh ke bina bhi update ho sake
+========================================= */
+
+window.addEventListener(
+    "storage",
+    function(event) {
+
+        if (
+            event.key ===
+            "aurexProducts"
+        ) {
+
+            try {
+
+                products =
+                    JSON.parse(
+                        event.newValue || "[]"
+                    );
+
+                if (
+                    !Array.isArray(products)
+                ) {
+
+                    products = [];
+
+                }
+
+            } catch (error) {
+
+                products = [];
+
+            }
+
+
+            renderProducts();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   INITIAL RENDER
+========================================= */
+
+renderProducts();
+
+
+console.log(
+    "AUREX PRODUCTS ENGINE READY"
+);
+
+               </script>
+               <link rel="stylesheet" href="bottom-nav.css">
+<script src="bottom-nav.js"></script>

@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AUREX 360 Viewer</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #050505;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+
+/* HEADER */
+
+.viewer-header {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background: #090909;
+    border-bottom: 1px solid #222;
+}
+
+.logo {
+    color: #fff;
+    text-decoration: none;
+    font-size: 21px;
+    font-weight: 900;
+    letter-spacing: 4px;
+}
+
+.back-btn {
+    color: #fff;
+    text-decoration: none;
+    background: #1e90ff;
+    padding: 10px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+
+/* VIEWER */
+
+.viewer-area {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(
+            circle at center,
+            #202020 0%,
+            #080808 55%,
+            #030303 100%
+        );
+}
+
+
+/* PRODUCT */
+
+.product-stage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: grab;
+    touch-action: none;
+}
+
+.product-stage:active {
+    cursor: grabbing;
+}
+
+.product-image {
+    width: min(75vw, 650px);
+    height: min(75vw, 650px);
+    object-fit: contain;
+
+    user-select: none;
+    -webkit-user-drag: none;
+
+    transform-origin: center center;
+
+    transition:
+        transform 0.08s linear;
+
+    filter:
+        drop-shadow(
+            0 30px 35px rgba(0,0,0,0.6)
+        );
+}
+
+
+/* CONTROLS */
+
+.controls {
+    position: absolute;
+    left: 50%;
+    bottom: 25px;
+    transform: translateX(-50%);
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background: rgba(15,15,15,0.9);
+    padding: 10px;
+    border-radius: 30px;
+
+    border: 1px solid #333;
+}
+
+.control-btn {
+    width: 42px;
+    height: 42px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #222;
+    color: #fff;
+
+    font-size: 18px;
+
+    cursor: pointer;
+}
+
+.control-btn:hover {
+    background: #333;
+}
+
+.zoom-text {
+    min-width: 55px;
+    text-align: center;
+    font-size: 12px;
+    color: #aaa;
+}
+
+
+/* PRODUCT NAME */
+
+.product-title {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    text-align: center;
+
+    pointer-events: none;
+}
+
+.product-title h1 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.product-title p {
+    margin: 5px 0 0;
+    color: #888;
+    font-size: 11px;
+}
+
+
+/* LOADING */
+
+.loading {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    color: #aaa;
+    font-size: 13px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .viewer-header {
+        height: 60px;
+        padding: 0 14px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .back-btn {
+        padding: 8px 13px;
+        font-size: 12px;
+    }
+
+    .viewer-area {
+        height: calc(100vh - 60px);
+    }
+
+    .product-image {
+        width: 90vw;
+        height: 90vw;
+    }
+
+    .controls {
+        bottom: 18px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header class="viewer-header">
+
+    <a
+        href="products.html"
+        class="logo">
+
+        AUREX
+
+    </a>
+
+
+    <a
+        href="javascript:history.back()"
+        class="back-btn">
+
+        ← Back
+
+    </a>
+
+</header>
+
+
+
+<!-- VIEWER -->
+
+<main class="viewer-area">
+
+
+    <!-- PRODUCT TITLE -->
+
+    <div class="product-title">
+
+        <h1 id="productName">
+            AUREX Product
+        </h1>
+
+        <p>
+            Drag • Move • Zoom
+        </p>
+
+    </div>
+
+
+
+    <!-- LOADING -->
+
+    <div
+        class="loading"
+        id="loading">
+
+        Loading product...
+
+    </div>
+
+
+
+    <!-- IMAGE -->
+
+    <div
+        class="product-stage"
+        id="productStage">
+
+        <img
+            id="productImage"
+            class="product-image"
+            src=""
+            alt="AUREX Product">
+
+    </div>
+
+
+
+    <!-- CONTROLS -->
+
+    <div class="controls">
+
+        <button
+            class="control-btn"
+            id="zoomOut">
+
+            −
+
+        </button>
+
+
+        <div
+            class="zoom-text"
+            id="zoomText">
+
+            100%
+
+        </div>
+
+
+        <button
+            class="control-btn"
+            id="zoomIn">
+
+            +
+
+        </button>
+
+
+        <button
+            class="control-btn"
+            id="resetBtn">
+
+            ↻
+
+        </button>
+
+    </div>
+
+
+</main>
+
+
+
+<script type="text/javascript">
+
+// @ts-nocheck
+
+
+/* =====================================
+   GET PRODUCT ID
+===================================== */
+
+var params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+var productId =
+    params.get("id");
+
+
+
+/* =====================================
+   LOAD ADMIN PRODUCTS
+===================================== */
+
+var products = [];
+
+try {
+
+    products =
+        JSON.parse(
+            localStorage.getItem(
+                "aurexProducts"
+            ) || "[]"
+        );
+
+} catch (error) {
+
+    products = [];
+
+}
+
+
+
+/* =====================================
+   FIND PRODUCT
+===================================== */
+
+var product = null;
+
+
+for (
+    var i = 0;
+    i < products.length;
+    i++
+) {
+
+    if (
+        products[i].id === productId
+    ) {
+
+        product =
+            products[i];
+
+        break;
+
+    }
+
+}
+
+
+
+/* =====================================
+   ELEMENTS
+===================================== */
+
+var image =
+    document.getElementById(
+        "productImage"
+    );
+
+
+var stage =
+    document.getElementById(
+        "productStage"
+    );
+
+
+var loading =
+    document.getElementById(
+        "loading"
+    );
+
+
+var productName =
+    document.getElementById(
+        "productName"
+    );
+
+
+var zoomText =
+    document.getElementById(
+        "zoomText"
+    );
+
+
+
+/* =====================================
+   PRODUCT NOT FOUND
+===================================== */
+
+if (!product) {
+
+    loading.textContent =
+        "Product not found.";
+
+} else {
+
+
+    /* PRODUCT NAME */
+
+    productName.textContent =
+        product.name ||
+        "AUREX Product";
+
+
+    /* PRODUCT IMAGE */
+
+    image.src =
+        product.image ||
+        "https://via.placeholder.com/700x700?text=AUREX";
+
+
+    image.alt =
+        product.name ||
+        "AUREX Product";
+
+
+    image.onload =
+        function() {
+
+            loading.style.display =
+                "none";
+
+        };
+
+}
+
+
+
+/* =====================================
+   VIEWER VARIABLES
+===================================== */
+
+var scale = 1;
+
+var rotateX = 0;
+
+var rotateY = 0;
+
+var posX = 0;
+
+var posY = 0;
+
+
+var dragging = false;
+
+var startX = 0;
+
+var startY = 0;
+
+var startRotateX = 0;
+
+var startRotateY = 0;
+
+var startPosX = 0;
+
+var startPosY = 0;
+
+
+
+/* =====================================
+   UPDATE VIEW
+===================================== */
+
+function updateView() {
+
+
+    image.style.transform =
+
+        "translate(" +
+        posX +
+        "px," +
+        posY +
+        "px) " +
+
+        "rotateX(" +
+        rotateX +
+        "deg) " +
+
+        "rotateY(" +
+        rotateY +
+        "deg) " +
+
+        "scale(" +
+        scale +
+        ")";
+
+
+    zoomText.textContent =
+        Math.round(scale * 100) +
+        "%";
+
+}
+
+
+
+/* =====================================
+   POINTER DOWN
+===================================== */
+
+stage.addEventListener(
+    "pointerdown",
+    function(event) {
+
+
+        dragging = true;
+
+
+        startX =
+            event.clientX;
+
+
+        startY =
+            event.clientY;
+
+
+        startRotateX =
+            rotateX;
+
+
+        startRotateY =
+            rotateY;
+
+
+        startPosX =
+            posX;
+
+
+        startPosY =
+            posY;
+
+
+        stage.setPointerCapture(
+            event.pointerId
+        );
+
+    }
+);
+
+
+
+/* =====================================
+   POINTER MOVE
+===================================== */
+
+stage.addEventListener(
+    "pointermove",
+    function(event) {
+
+
+        if (!dragging) {
+            return;
+        }
+
+
+        var deltaX =
+            event.clientX -
+            startX;
+
+
+        var deltaY =
+            event.clientY -
+            startY;
+
+
+        /*
+          LEFT / RIGHT
+          rotates horizontally
+        */
+
+        rotateY =
+            startRotateY +
+            deltaX * 0.35;
+
+
+        /*
+          UP / DOWN
+          changes vertical viewing angle
+        */
+
+        rotateX =
+            startRotateX -
+            deltaY * 0.25;
+
+
+        /*
+          LIMIT VERTICAL ANGLE
+        */
+
+        if (rotateX > 60) {
+            rotateX = 60;
+        }
+
+        if (rotateX < -60) {
+            rotateX = -60;
+        }
+
+
+        updateView();
+
+    }
+);
+
+
+
+/* =====================================
+   POINTER UP
+===================================== */
+
+stage.addEventListener(
+    "pointerup",
+    function(event) {
+
+        dragging = false;
+
+        try {
+
+            stage.releasePointerCapture(
+                event.pointerId
+            );
+
+        } catch (error) {}
+
+    }
+);
+
+
+
+stage.addEventListener(
+    "pointercancel",
+    function() {
+
+        dragging = false;
+
+    }
+);
+
+
+
+/* =====================================
+   ZOOM IN
+===================================== */
+
+document
+.getElementById("zoomIn")
+.addEventListener(
+    "click",
+    function() {
+
+
+        scale += 0.15;
+
+
+        if (scale > 3) {
+            scale = 3;
+        }
+
+
+        updateView();
+
+    }
+);
+
+
+
+/* =====================================
+   ZOOM OUT
+===================================== */
+
+document
+.getElementById("zoomOut")
+.addEventListener(
+    "click",
+    function() {
+
+
+        scale -= 0.15;
+
+
+        if (scale < 0.6) {
+            scale = 0.6;
+        }
+
+
+        updateView();
+
+    }
+);
+
+
+
+/* =====================================
+   RESET
+===================================== */
+
+document
+.getElementById("resetBtn")
+.addEventListener(
+    "click",
+    function() {
+
+
+        scale = 1;
+
+        rotateX = 0;
+
+        rotateY = 0;
+
+        posX = 0;
+
+        posY = 0;
+
+
+        updateView();
+
+    }
+);
+
+
+
+/* =====================================
+   MOUSE WHEEL ZOOM
+===================================== */
+
+stage.addEventListener(
+    "wheel",
+    function(event) {
+
+
+        event.preventDefault();
+
+
+        if (
+            event.deltaY < 0
+        ) {
+
+            scale += 0.1;
+
+        } else {
+
+            scale -= 0.1;
+
+        }
+
+
+        if (scale > 3) {
+            scale = 3;
+        }
+
+
+        if (scale < 0.6) {
+            scale = 0.6;
+        }
+
+
+        updateView();
+
+    },
+    {
+        passive: false
+    }
+);
+
+
+
+/* =====================================
+   INITIAL VIEW
+===================================== */
+
+updateView();
+
+</script>
+
+
+</body>
+
+</html>

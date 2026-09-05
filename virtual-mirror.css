@@ -1,0 +1,946 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #050505;
+    color: #fff;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/* ================================
+   PAGE
+================================ */
+
+.mirror-page {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            #202020 0,
+            #0b0b0b 45%,
+            #030303 100%
+        );
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.mirror-header {
+    height: 68px;
+
+    padding: 0 6%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom: 1px solid #242424;
+
+    background: rgba(5,5,5,0.94);
+}
+
+.logo {
+    color: #fff;
+
+    text-decoration: none;
+
+    font-size: 23px;
+
+    font-weight: 900;
+
+    letter-spacing: 4px;
+}
+
+.mirror-title {
+    color: #888;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+
+/* ================================
+   MAIN
+================================ */
+
+.mirror-container {
+    width: min(1100px, 92%);
+
+    margin: auto;
+
+    padding:
+        55px 0 80px;
+}
+
+
+/* ================================
+   INTRO
+================================ */
+
+.intro {
+    max-width: 700px;
+
+    margin: 0 auto 45px;
+
+    text-align: center;
+}
+
+.eyebrow {
+    margin: 0 0 10px;
+
+    color: #888;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+.intro h1 {
+    margin: 0;
+
+    font-size:
+        clamp(42px, 7vw, 76px);
+
+    line-height: .95;
+
+    letter-spacing: -3px;
+}
+
+.intro h1 span {
+    color: #777;
+}
+
+.intro-text {
+    max-width: 560px;
+
+    margin:
+        25px auto 0;
+
+    color: #999;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* ================================
+   SETUP CARD
+================================ */
+
+.setup-card {
+    max-width: 760px;
+
+    margin: auto;
+
+    padding: 30px;
+
+    border:
+        1px solid #292929;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #171717,
+            #0b0b0b
+        );
+
+    box-shadow:
+        0 25px 70px
+        rgba(0,0,0,.45);
+}
+
+.setup-card h2 {
+    margin: 0;
+
+    font-size: 25px;
+}
+
+
+/* ================================
+   GROUP
+================================ */
+
+.setup-group {
+    margin-top: 28px;
+}
+
+.setup-group > label {
+    display: block;
+
+    margin-bottom: 12px;
+
+    color: #aaa;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+/* ================================
+   GENDER
+================================ */
+
+.choice-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 12px;
+}
+
+.choice-btn {
+    min-height: 76px;
+
+    border:
+        1px solid #333;
+
+    border-radius: 13px;
+
+    background: #101010;
+
+    color: #aaa;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    transition:
+        .2s ease;
+}
+
+.choice-btn:hover {
+    border-color: #777;
+}
+
+.choice-btn.active {
+    background: #fff;
+
+    color: #111;
+
+    border-color: #fff;
+}
+
+.choice-icon {
+    font-size: 28px;
+
+    line-height: 1;
+}
+
+.choice-btn span:last-child {
+    font-size: 14px;
+
+    font-weight: 800;
+}
+
+
+/* ================================
+   SKIN
+================================ */
+
+.skin-grid {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 13px;
+}
+
+.skin-btn {
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 50%;
+
+    border:
+        3px solid transparent;
+
+    cursor: pointer;
+
+    transition:
+        .2s ease;
+}
+
+.skin-btn:hover {
+    transform:
+        scale(1.08);
+}
+
+.skin-btn.active {
+    border-color: #fff;
+
+    box-shadow:
+        0 0 0 2px #111;
+}
+
+.skin-light {
+    background: #f2c7a5;
+}
+
+.skin-medium {
+    background: #d99a6c;
+}
+
+.skin-brown {
+    background: #a96f48;
+}
+
+.skin-deep {
+    background: #633d2c;
+}
+
+
+/* ================================
+   INPUTS
+================================ */
+
+.input-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+}
+
+.input-box {
+    padding: 15px;
+
+    border:
+        1px solid #292929;
+
+    border-radius: 12px;
+
+    background: #101010;
+}
+
+.input-box > span {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #888;
+
+    font-size: 11px;
+}
+
+.input-wrapper {
+    display: flex;
+
+    align-items: center;
+}
+
+.input-wrapper input {
+    width: 100%;
+
+    padding: 0;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: #fff;
+
+    font-size: 21px;
+
+    font-weight: 800;
+}
+
+.input-wrapper input::placeholder {
+    color: #555;
+}
+
+.input-wrapper small {
+    color: #777;
+
+    font-size: 11px;
+}
+
+
+/* ================================
+   CREATE
+================================ */
+
+.create-avatar-btn {
+    width: 100%;
+
+    margin-top: 30px;
+
+    padding: 17px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #fff;
+
+    color: #111;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    font-size: 13px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    transition:
+        .2s ease;
+}
+
+.create-avatar-btn:hover {
+    transform:
+        translateY(-2px);
+}
+
+.create-avatar-btn span {
+    font-size: 20px;
+}
+
+
+/* ================================
+   AVATAR SECTION
+================================ */
+
+.avatar-section {
+    margin-top: 55px;
+
+    padding: 30px;
+
+    border:
+        1px solid #292929;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #080808
+        );
+}
+
+.avatar-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.avatar-header h2 {
+    margin: 0;
+
+    font-size: 28px;
+}
+
+.avatar-status {
+    padding: 8px 12px;
+
+    border:
+        1px solid #333;
+
+    border-radius: 30px;
+
+    color: #888;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+/* ================================
+   3D STAGE
+================================ */
+
+.avatar-stage {
+    position: relative;
+
+    width: 100%;
+
+    height: min(68vh, 650px);
+
+    min-height: 500px;
+
+    margin-top: 25px;
+
+    overflow: hidden;
+
+    border:
+        1px solid #252525;
+
+    border-radius: 18px;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 45%,
+            #252525 0,
+            #121212 42%,
+            #070707 80%
+        );
+
+    touch-action: none;
+
+    cursor: grab;
+}
+
+.avatar-stage.dragging {
+    cursor: grabbing;
+}
+
+
+/* Floor */
+
+.avatar-stage::after {
+    content: "";
+
+    position: absolute;
+
+    left: 12%;
+    right: 12%;
+
+    bottom: 25px;
+
+    height: 1px;
+
+    background: #333;
+
+    box-shadow:
+        0 0 25px #333;
+
+    pointer-events: none;
+}
+
+
+/* ================================
+   THREE CANVAS
+================================ */
+
+.avatar-stage canvas {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100% !important;
+
+    height: 100% !important;
+
+    display: block;
+
+    touch-action: none;
+}
+
+
+/* ================================
+   LOADING
+================================ */
+
+.loading-screen {
+    position: absolute;
+
+    z-index: 10;
+
+    inset: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        rgba(5,5,5,.82);
+
+    pointer-events: none;
+
+    transition:
+        opacity .4s ease;
+}
+
+.loading-screen.hidden {
+    opacity: 0;
+}
+
+.loading-screen p {
+    margin-top: 15px;
+
+    color: #888;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+}
+
+.loader-circle {
+    width: 35px;
+
+    height: 35px;
+
+    border:
+        2px solid #333;
+
+    border-top-color: #fff;
+
+    border-radius: 50%;
+
+    animation:
+        spin .8s linear infinite;
+}
+
+@keyframes spin {
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+
+}
+
+
+/* ================================
+   MESSAGE
+================================ */
+
+.avatar-message {
+    position: absolute;
+
+    z-index: 5;
+
+    top: 20px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    width: 90%;
+
+    text-align: center;
+
+    color: #777;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    pointer-events: none;
+}
+
+
+/* ================================
+   DRAG HINT
+================================ */
+
+.drag-hint {
+    position: absolute;
+
+    z-index: 5;
+
+    bottom: 18px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    padding:
+        7px 12px;
+
+    border:
+        1px solid #333;
+
+    border-radius: 30px;
+
+    background:
+        rgba(0,0,0,.55);
+
+    color: #777;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    pointer-events: none;
+}
+
+
+/* ================================
+   CONTROLS
+================================ */
+
+.mirror-controls {
+    display: grid;
+
+    grid-template-columns:
+        60px 1fr 60px;
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+.mirror-controls button {
+    min-height: 50px;
+
+    border:
+        1px solid #333;
+
+    border-radius: 10px;
+
+    background: #111;
+
+    color: #fff;
+
+    cursor: pointer;
+
+    font-weight: 800;
+
+    transition:
+        .2s ease;
+}
+
+.mirror-controls button:hover {
+    background: #222;
+
+    border-color: #555;
+}
+
+.rotate-main {
+    letter-spacing: 1px;
+}
+
+
+/* ================================
+   RAMP WALK
+================================ */
+
+.ramp-btn {
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 15px;
+
+    border:
+        1px solid #333;
+
+    border-radius: 10px;
+
+    background: #171717;
+
+    color: #fff;
+
+    cursor: pointer;
+
+    font-weight: 800;
+
+    transition:
+        .2s ease;
+}
+
+.ramp-btn:hover {
+    background: #222;
+
+    border-color: #555;
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+footer {
+    padding: 30px 20px;
+
+    border-top:
+        1px solid #222;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 20px;
+
+    color: #666;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 700px) {
+
+    .mirror-header {
+        padding: 0 20px;
+    }
+
+    .mirror-title {
+        font-size: 8px;
+    }
+
+    .mirror-container {
+        width: 94%;
+
+        padding-top: 35px;
+    }
+
+    .setup-card,
+    .avatar-section {
+        padding: 20px;
+    }
+
+    .input-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .avatar-stage {
+        height: 570px;
+
+        min-height: 470px;
+    }
+
+    .mirror-controls {
+        grid-template-columns:
+            52px 1fr 52px;
+    }
+
+    footer {
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+}
+/* ==============================
+   AUREX AVATAR FIX
+============================== */
+
+.avatar-stage {
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* Three.js canvas ko front par lao */
+.avatar-stage canvas {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    z-index: 5 !important;
+}
+
+/* Purane placeholder ko hide karo */
+.avatar-placeholder,
+.avatar-preview,
+.avatar-silhouette,
+.avatar-body,
+.body-placeholder,
+.avatar-outline {
+    display: none !important;
+}
+
+/* Canvas ke upar wale messages ko transparent rakho */
+.avatar-message,
+.drag-hint {
+    position: absolute !important;
+    z-index: 10 !important;
+    pointer-events: none !important;
+}
+
+/* Loading screen sirf loading ke time */
+.loading-screen {
+    z-index: 20 !important;
+}
+/* =================================
+   REMOVE OLD AVATAR PLACEHOLDER
+================================= */
+
+.avatar-stage > div:not(.loading-screen):not(.avatar-message):not(.drag-hint) {
+    display: none !important;
+}
+
+/* THREE.JS CANVAS */
+.avatar-stage canvas {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    z-index: 2 !important;
+}
+
+/* MESSAGE */
+.avatar-message {
+    z-index: 10 !important;
+}
+
+/* DRAG HINT */
+.drag-hint {
+    z-index: 10 !important;
+}
+
+/* LOADING */
+.loading-screen {
+    z-index: 20 !important;
+}

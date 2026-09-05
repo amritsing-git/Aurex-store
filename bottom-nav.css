@@ -1,0 +1,265 @@
+/* ========================================
+   AUREX MOBILE BOTTOM NAVIGATION
+======================================== */
+
+.aurex-bottom-nav{
+    display:none;
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width:750px){
+
+    body{
+        padding-bottom:82px;
+    }
+
+    .aurex-bottom-nav{
+
+        position:fixed;
+
+        left:10px;
+        right:10px;
+        bottom:10px;
+
+        height:66px;
+
+        display:grid;
+        grid-template-columns:repeat(5,1fr);
+
+        align-items:center;
+
+        background:rgba(10,10,12,.94);
+
+        border:1px solid rgba(255,255,255,.10);
+
+        border-radius:20px;
+
+        box-shadow:
+            0 15px 45px rgba(0,0,0,.45),
+            0 0 25px rgba(0,183,255,.06);
+
+        backdrop-filter:blur(18px);
+        -webkit-backdrop-filter:blur(18px);
+
+        z-index:999999;
+
+        padding:5px;
+
+    }
+
+
+    /* ====================================
+       NAV ITEM
+    ==================================== */
+
+    .aurex-nav-item{
+
+        position:relative;
+
+        height:56px;
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:center;
+
+        justify-content:center;
+
+        gap:3px;
+
+        text-decoration:none;
+
+        color:#777;
+
+        border-radius:15px;
+
+        transition:
+            .25s ease;
+
+        -webkit-tap-highlight-color:
+            transparent;
+
+    }
+
+
+    /* ====================================
+       ICON
+    ==================================== */
+
+    .aurex-nav-icon{
+
+        position:relative;
+
+        width:25px;
+        height:25px;
+
+        display:flex;
+
+        align-items:center;
+        justify-content:center;
+
+        font-size:22px;
+
+        line-height:1;
+
+        transition:.25s ease;
+
+    }
+
+
+    /* ====================================
+       LABEL
+    ==================================== */
+
+    .aurex-nav-label{
+
+        font-size:9px;
+
+        font-weight:700;
+
+        letter-spacing:.2px;
+
+        transition:.25s ease;
+
+    }
+
+
+    /* ====================================
+       ACTIVE
+    ==================================== */
+
+    .aurex-nav-item.active{
+
+        color:#fff;
+
+        background:
+            linear-gradient(
+                145deg,
+                rgba(0,183,255,.16),
+                rgba(0,183,255,.04)
+            );
+
+    }
+
+
+    .aurex-nav-item.active
+    .aurex-nav-icon{
+
+        color:#6be2ff;
+
+        transform:
+            translateY(-1px);
+
+        text-shadow:
+            0 0 14px
+            rgba(0,183,255,.7);
+
+    }
+
+
+    .aurex-nav-item.active
+    .aurex-nav-label{
+
+        color:#fff;
+
+    }
+
+
+    /* ====================================
+       TOUCH EFFECT
+    ==================================== */
+
+    .aurex-nav-item:active{
+
+        transform:scale(.92);
+
+    }
+
+
+    /* ====================================
+       CART BADGE
+    ==================================== */
+
+    .cart-icon{
+
+        position:relative;
+
+    }
+
+
+    .aurex-cart-badge{
+
+        position:absolute;
+
+        top:-7px;
+        right:-9px;
+
+        min-width:16px;
+        height:16px;
+
+        padding:0 4px;
+
+        display:flex;
+
+        align-items:center;
+        justify-content:center;
+
+        background:#ff3b30;
+
+        color:#fff;
+
+        border-radius:999px;
+
+        font-size:8px;
+
+        font-weight:900;
+
+        border:2px solid #0a0a0c;
+
+    }
+
+}
+
+
+/* ========================================
+   VERY SMALL PHONES
+======================================== */
+
+@media (max-width:380px){
+
+    .aurex-bottom-nav{
+
+        left:6px;
+        right:6px;
+        bottom:6px;
+
+        height:62px;
+
+        border-radius:18px;
+
+    }
+
+    .aurex-nav-item{
+
+        height:52px;
+
+    }
+
+    .aurex-nav-icon{
+
+        font-size:20px;
+
+    }
+
+    .aurex-nav-label{
+
+        font-size:8px;
+
+    }
+
+}

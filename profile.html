@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AUREX — Account</title>
+
+<link rel="stylesheet" href="bottom-nav.css">
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+    color:#111;
+    padding-bottom:90px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.account-header{
+    background:#111;
+    color:#fff;
+    padding:18px 6%;
+}
+
+.header-row{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:900;
+    letter-spacing:4px;
+}
+
+.back-link{
+    color:#fff;
+    text-decoration:none;
+    font-size:13px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.account-wrapper{
+    width:min(1000px,92%);
+    margin:30px auto;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.account-hero{
+    background:#111;
+    color:#fff;
+    border-radius:22px;
+    padding:35px;
+    display:flex;
+    align-items:center;
+    gap:22px;
+    margin-bottom:20px;
+}
+
+.avatar{
+    width:78px;
+    height:78px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#00b7ff,#6be2ff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#001018;
+    font-size:30px;
+    font-weight:900;
+}
+
+.hero-text h1{
+    margin:0;
+    font-size:28px;
+}
+
+.hero-text p{
+    margin:8px 0 0;
+    color:#aaa;
+    font-size:13px;
+}
+
+/* =========================
+   LOGIN CARD
+========================= */
+
+.login-card{
+    background:#fff;
+    border:1px solid #e5e5e5;
+    border-radius:18px;
+    padding:25px;
+    margin-bottom:20px;
+}
+
+.login-card h2{
+    margin:0 0 6px;
+}
+
+.login-card p{
+    color:#777;
+    font-size:13px;
+}
+
+.input{
+    width:100%;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    margin-top:10px;
+    font-size:14px;
+    outline:none;
+}
+
+.input:focus{
+    border-color:#111;
+}
+
+.login-btn{
+    width:100%;
+    margin-top:12px;
+    padding:14px;
+    border:0;
+    border-radius:10px;
+    background:#111;
+    color:#fff;
+    font-weight:800;
+    cursor:pointer;
+}
+
+/* =========================
+   ACCOUNT GRID
+========================= */
+
+.account-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+}
+
+.account-card{
+    background:#fff;
+    border:1px solid #e5e5e5;
+    border-radius:18px;
+    padding:22px;
+    text-decoration:none;
+    color:#111;
+    transition:.2s;
+}
+
+.account-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.account-icon{
+    font-size:27px;
+    margin-bottom:12px;
+}
+
+.account-card h3{
+    margin:0;
+    font-size:16px;
+}
+
+.account-card p{
+    margin:7px 0 0;
+    color:#777;
+    font-size:12px;
+}
+
+/* =========================
+   ORDERS PREVIEW
+========================= */
+
+.orders-section{
+    background:#fff;
+    border:1px solid #e5e5e5;
+    border-radius:18px;
+    margin-top:20px;
+    padding:22px;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.section-head h2{
+    margin:0;
+    font-size:20px;
+}
+
+.section-head a{
+    color:#111;
+    font-size:12px;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.empty-orders{
+    text-align:center;
+    padding:30px 10px;
+    color:#777;
+}
+
+.empty-orders strong{
+    display:block;
+    color:#111;
+    margin-bottom:7px;
+}
+
+/* =========================
+   LOGOUT
+========================= */
+
+.logout-btn{
+    width:100%;
+    margin-top:20px;
+    padding:14px;
+    background:#fff;
+    color:#d22;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+    position:fixed;
+    top:18px;
+    left:50%;
+    transform:translateX(-50%) translateY(-30px);
+    background:#111;
+    color:#fff;
+    padding:13px 18px;
+    border-radius:10px;
+    opacity:0;
+    pointer-events:none;
+    transition:.3s;
+    z-index:999999;
+    font-size:13px;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .account-wrapper{
+        width:94%;
+        margin:20px auto;
+    }
+
+    .account-hero{
+        padding:25px 20px;
+    }
+
+    .avatar{
+        width:62px;
+        height:62px;
+        font-size:24px;
+    }
+
+    .hero-text h1{
+        font-size:22px;
+    }
+
+    .account-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .account-card{
+        padding:17px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="account-header">
+
+<div class="header-row">
+
+<div class="logo">
+AUREX
+</div>
+
+<a href="index.html" class="back-link">
+← Continue Shopping
+</a>
+
+</div>
+
+</header>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="account-wrapper">
+
+
+<!-- HERO -->
+
+<section class="account-hero">
+
+<div class="avatar" id="avatar">
+A
+</div>
+
+<div class="hero-text">
+
+<h1 id="welcomeText">
+Welcome to AUREX
+</h1>
+
+<p id="accountStatus">
+Sign in to manage your AUREX account.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section class="login-card" id="loginCard">
+
+<h2>
+Sign in / Create Account
+</h2>
+
+<p>
+Enter your details to access your AUREX account.
+</p>
+
+<input
+id="nameInput"
+class="input"
+type="text"
+placeholder="Your Name">
+
+<input
+id="emailInput"
+class="input"
+type="email"
+placeholder="Email Address">
+
+<button
+id="loginBtn"
+class="login-btn">
+
+CONTINUE
+
+</button>
+
+</section>
+
+
+<!-- ACCOUNT OPTIONS -->
+
+<section class="account-grid">
+
+
+<a href="orders.html" class="account-card">
+
+<div class="account-icon">
+📦
+</div>
+
+<h3>
+My Orders
+</h3>
+
+<p>
+View your orders and order status.
+</p>
+
+</a>
+
+
+<a href="orders.html" class="account-card">
+
+<div class="account-icon">
+🚚
+</div>
+
+<h3>
+Track Order
+</h3>
+
+<p>
+Check where your order has reached.
+</p>
+
+</a>
+
+
+<a href="wishlist.html" class="account-card">
+
+<div class="account-icon">
+❤️
+</div>
+
+<h3>
+Wishlist
+</h3>
+
+<p>
+View your saved products.
+</p>
+
+</a>
+
+
+<a href="addresses.html" class="account-card">
+
+<div class="account-icon">
+📍
+</div>
+
+<h3>
+My Addresses
+</h3>
+
+<p>
+Manage your delivery addresses.
+</p>
+
+</a>
+
+
+<a href="settings.html" class="account-card">
+
+<div class="account-icon">
+⚙️
+</div>
+
+<h3>
+Account Settings
+</h3>
+
+<p>
+Manage your account preferences.
+</p>
+
+</a>
+
+
+<a href="products.html" class="account-card">
+
+<div class="account-icon">
+🛍️
+</div>
+
+<h3>
+Continue Shopping
+</h3>
+
+<p>
+Explore the latest AUREX collection.
+</p>
+
+</a>
+
+
+</section>
+
+
+<!-- =========================
+     ORDERS
+========================= -->
+
+<section class="orders-section">
+
+<div class="section-head">
+
+<h2>
+Recent Orders
+</h2>
+
+<a href="orders.html">
+View All →
+</a>
+
+</div>
+
+
+<div
+id="recentOrders"
+class="empty-orders">
+
+<strong>
+No orders yet
+</strong>
+
+Your future AUREX orders will appear here.
+
+</div>
+
+</section>
+
+
+<button
+id="logoutBtn"
+class="logout-btn">
+
+LOG OUT
+
+</button>
+
+
+</main>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script src="bottom-nav.js"></script>
+
+
+<script>
+
+// ========================================
+// AUREX ACCOUNT SYSTEM — V1
+// ========================================
+
+var nameInput =
+document.getElementById("nameInput");
+
+var emailInput =
+document.getElementById("emailInput");
+
+var loginBtn =
+document.getElementById("loginBtn");
+
+var loginCard =
+document.getElementById("loginCard");
+
+var welcomeText =
+document.getElementById("welcomeText");
+
+var accountStatus =
+document.getElementById("accountStatus");
+
+var avatar =
+document.getElementById("avatar");
+
+var logoutBtn =
+document.getElementById("logoutBtn");
+
+var toast =
+document.getElementById("toast");
+
+var recentOrders =
+document.getElementById("recentOrders");
+
+
+// ========================================
+// TOAST
+// ========================================
+
+function showToast(){
+
+    var message = String(arguments[0] || "");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(function(){
+
+        toast.classList.remove("show");
+
+    },2200);
+
+}
+
+
+// ========================================
+// LOAD ACCOUNT
+// ========================================
+
+function loadAccount(){
+
+    var account = null;
+
+    try{
+
+        account =
+        JSON.parse(
+            localStorage.getItem(
+                "aurexAccount"
+            ) || "null"
+        );
+
+    }catch(error){
+
+        account = null;
+
+    }
+
+
+    if(account){
+
+        loginCard.style.display =
+            "none";
+
+        welcomeText.textContent =
+            "Welcome, " + account.name + " 👋";
+
+        accountStatus.textContent =
+            account.email;
+
+        avatar.textContent =
+            account.name
+            .charAt(0)
+            .toUpperCase();
+
+    }else{
+
+        loginCard.style.display =
+            "block";
+
+        welcomeText.textContent =
+            "Welcome to AUREX";
+
+        accountStatus.textContent =
+            "Sign in to manage your AUREX account.";
+
+        avatar.textContent = "A";
+
+    }
+
+}
+
+
+// ========================================
+// LOGIN
+// ========================================
+
+loginBtn.onclick =
+function(){
+
+    var name =
+        nameInput.value.trim();
+
+    var email =
+        emailInput.value.trim();
+
+
+    if(!name){
+
+        showToast(
+            "Please enter your name"
+        );
+
+        return;
+
+    }
+
+
+    if(!email){
+
+        showToast(
+            "Please enter your email"
+        );
+
+        return;
+
+    }
+
+
+    var account = {
+
+        name:name,
+
+        email:email,
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+
+    localStorage.setItem(
+        "aurexAccount",
+        JSON.stringify(account)
+    );
+
+
+    loadAccount();
+
+    showToast(
+        "✅ AUREX Account Created"
+    );
+
+};
+
+
+// ========================================
+// LOGOUT
+// ========================================
+
+logoutBtn.onclick =
+function(){
+
+    localStorage.removeItem(
+        "aurexAccount"
+    );
+
+    loadAccount();
+
+    showToast(
+        "Logged out successfully"
+    );
+
+};
+
+
+// ========================================
+// RECENT ORDERS
+// ========================================
+
+function loadRecentOrders(){
+
+    var orders = [];
+
+    try{
+
+        orders =
+        JSON.parse(
+            localStorage.getItem(
+                "aurexOrders"
+            ) || "[]"
+        );
+
+        if(!Array.isArray(orders)){
+
+            orders = [];
+
+        }
+
+    }catch(error){
+
+        orders = [];
+
+    }
+
+
+    if(orders.length === 0){
+
+        recentOrders.innerHTML =
+
+            "<strong>No orders yet</strong>" +
+
+            "Your future AUREX orders will appear here.";
+
+        return;
+
+    }
+
+
+    var order =
+        orders[orders.length - 1];
+
+
+    recentOrders.innerHTML =
+
+        "<strong>" +
+
+        "Order #" +
+
+        String(
+            order.orderId ||
+            "AUREX"
+        ).slice(-8) +
+
+        "</strong>" +
+
+        "Status: " +
+
+        (
+            order.status ||
+            "Order Placed"
+        );
+
+}
+
+
+// ========================================
+// INITIALIZE
+// ========================================
+
+loadAccount();
+
+loadRecentOrders();
+
+</script>
+
+
+</body>
+
+</html>

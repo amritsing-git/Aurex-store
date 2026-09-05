@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AUREX — My Orders</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f6f6f6;
+    color:#111;
+}
+
+.header{
+    background:#fff;
+    border-bottom:1px solid #e5e5e5;
+    padding:15px 5%;
+}
+
+.header-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    color:#111;
+    text-decoration:none;
+    font-size:22px;
+    font-weight:800;
+    letter-spacing:3px;
+}
+
+.header-links{
+    display:flex;
+    gap:18px;
+}
+
+.header-links a{
+    color:#111;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:600;
+}
+
+.wrapper{
+    max-width:950px;
+    margin:30px auto;
+    padding:0 18px;
+}
+
+.page-title{
+    margin-bottom:25px;
+}
+
+.page-title h1{
+    margin:0;
+    font-size:30px;
+}
+
+.page-title p{
+    color:#777;
+    font-size:13px;
+    margin-top:7px;
+}
+
+
+/* EMPTY */
+
+.empty{
+    background:#fff;
+    border:1px solid #e5e5e5;
+    border-radius:14px;
+    padding:65px 20px;
+    text-align:center;
+}
+
+.empty-icon{
+    font-size:50px;
+    margin-bottom:15px;
+}
+
+.empty h2{
+    margin:0 0 8px;
+}
+
+.empty p{
+    color:#777;
+    font-size:13px;
+}
+
+.shop-btn{
+    display:inline-block;
+    margin-top:12px;
+    padding:13px 24px;
+    background:#111;
+    color:#fff;
+    text-decoration:none;
+    border-radius:7px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+
+/* ORDER CARD */
+
+.order-card{
+    background:#fff;
+    border:1px solid #e3e3e3;
+    border-radius:14px;
+    margin-bottom:18px;
+    overflow:hidden;
+}
+
+.order-top{
+    padding:18px;
+    border-bottom:1px solid #eee;
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.order-id{
+    font-size:13px;
+    font-weight:800;
+}
+
+.order-date{
+    color:#777;
+    font-size:11px;
+    margin-top:5px;
+}
+
+.order-total{
+    font-size:15px;
+    font-weight:800;
+}
+
+
+/* TRACKING */
+
+.tracking{
+    padding:22px 18px;
+}
+
+.tracking-title{
+    font-size:13px;
+    font-weight:800;
+    margin-bottom:20px;
+}
+
+.progress{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    position:relative;
+}
+
+.progress-line{
+    position:absolute;
+    top:12px;
+    left:7%;
+    right:7%;
+    height:3px;
+    background:#ddd;
+    z-index:0;
+}
+
+.progress-line-active{
+    position:absolute;
+    top:12px;
+    left:7%;
+    width:25%;
+    height:3px;
+    background:#111;
+    z-index:1;
+}
+
+.step{
+    position:relative;
+    z-index:2;
+    width:20%;
+    text-align:center;
+}
+
+.step-circle{
+    width:26px;
+    height:26px;
+    margin:auto;
+    border-radius:50%;
+    background:#ddd;
+    color:#777;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    font-weight:bold;
+    border:3px solid #fff;
+}
+
+.step.active .step-circle{
+    background:#111;
+    color:#fff;
+}
+
+.step-label{
+    margin-top:8px;
+    font-size:10px;
+    color:#888;
+}
+
+.step.active .step-label{
+    color:#111;
+    font-weight:bold;
+}
+
+
+/* PRODUCTS */
+
+.items{
+    padding:18px;
+    border-top:1px solid #eee;
+}
+
+.item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:12px;
+}
+
+.item:last-child{
+    margin-bottom:0;
+}
+
+.item img{
+    width:60px;
+    height:60px;
+    object-fit:contain;
+    background:#f4f4f4;
+    border-radius:8px;
+}
+
+.item-info{
+    flex:1;
+}
+
+.item-name{
+    font-size:13px;
+    font-weight:700;
+}
+
+.item-meta{
+    margin-top:4px;
+    font-size:11px;
+    color:#777;
+}
+
+.item-price{
+    font-size:12px;
+    font-weight:bold;
+}
+
+
+/* STATUS */
+
+.status{
+    display:inline-block;
+    padding:6px 9px;
+    border-radius:20px;
+    background:#f0f0f0;
+    font-size:10px;
+    font-weight:800;
+    margin-top:8px;
+}
+
+
+/* FOOTER */
+
+.footer{
+    margin-top:50px;
+    background:#111;
+    color:#fff;
+    text-align:center;
+    padding:35px 20px;
+}
+
+.footer-logo{
+    font-size:23px;
+    font-weight:800;
+    letter-spacing:3px;
+}
+
+.footer p{
+    color:#aaa;
+    font-size:12px;
+}
+
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .wrapper{
+        margin-top:20px;
+        padding:0 12px;
+    }
+
+    .page-title h1{
+        font-size:25px;
+    }
+
+    .header-links{
+        gap:10px;
+    }
+
+    .header-links a{
+        font-size:11px;
+    }
+
+    .order-top{
+        flex-direction:column;
+    }
+
+    .order-total{
+        font-size:14px;
+    }
+
+    .step-label{
+        font-size:8px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header class="header">
+
+<div class="header-row">
+
+<a href="index.html" class="logo">
+AUREX
+</a>
+
+<div class="header-links">
+
+<a href="index.html">
+Home
+</a>
+
+<a href="products.html">
+Shop
+</a>
+
+<a href="wishlist.html">
+♡ Wishlist
+</a>
+
+<a href="cart.html">
+🛒 Cart
+</a>
+
+</div>
+
+</div>
+
+</header>
+
+
+<main class="wrapper">
+
+
+<div class="page-title">
+
+<h1>
+My Orders
+</h1>
+
+<p>
+Track your AUREX purchases and delivery status.
+</p>
+
+</div>
+
+
+<div id="ordersContainer"></div>
+
+
+<div id="emptyOrders" class="empty">
+
+<div class="empty-icon">
+📦
+</div>
+
+<h2>
+No Orders Yet
+</h2>
+
+<p>
+Your placed orders will appear here.
+</p>
+
+<a href="products.html" class="shop-btn">
+Start Shopping
+</a>
+
+</div>
+
+
+</main>
+
+
+<footer class="footer">
+
+<div class="footer-logo">
+AUREX
+</div>
+
+<p>
+Future in Motion.
+</p>
+
+<p>
+© 2026 AUREX. All Rights Reserved.
+</p>
+
+</footer>
+
+
+<script type="text/javascript">
+
+// @ts-nocheck
+
+
+var orders = [];
+
+
+try{
+
+    orders = JSON.parse(
+        localStorage.getItem("aurexOrders") || "[]"
+    );
+
+    if(!Array.isArray(orders)){
+        orders = [];
+    }
+
+}catch(error){
+
+    orders = [];
+
+}
+
+
+var container =
+    document.getElementById("ordersContainer");
+
+
+var empty =
+    document.getElementById("emptyOrders");
+
+
+function escapeHTML(value){
+
+    var div =
+        document.createElement("div");
+
+    div.textContent =
+        String(value);
+
+    return div.innerHTML;
+
+}
+
+
+function getStatusIndex(status){
+
+    if(status === "Confirmed"){
+        return 1;
+    }
+
+    if(status === "Shipped"){
+        return 2;
+    }
+
+    if(status === "Out for Delivery"){
+        return 3;
+    }
+
+    if(status === "Delivered"){
+        return 4;
+    }
+
+    return 0;
+
+}
+
+
+function renderOrders(){
+
+    container.innerHTML = "";
+
+
+    if(orders.length === 0){
+
+        empty.style.display = "block";
+
+        return;
+
+    }
+
+
+    empty.style.display = "none";
+
+
+    for(
+        var i = orders.length - 1;
+        i >= 0;
+        i--
+    ){
+
+        var order =
+            orders[i];
+
+
+        var status =
+            order.status ||
+            "Order Placed";
+
+
+        var activeStep =
+            getStatusIndex(status);
+
+
+        var total =
+            Number(order.total || 0);
+
+
+        var itemsHTML = "";
+
+
+        var items =
+            Array.isArray(order.items)
+            ? order.items
+            : [];
+
+
+        for(
+            var j = 0;
+            j < items.length;
+            j++
+        ){
+
+            var item =
+                items[j];
+
+
+            var itemTotal =
+                Number(item.price || 0) *
+                Number(item.quantity || 1);
+
+
+            itemsHTML +=
+
+                '<div class="item">' +
+
+                '<img src="' +
+                escapeHTML(
+                    item.image ||
+                    "https://via.placeholder.com/100"
+                ) +
+                '" alt="">' +
+
+                '<div class="item-info">' +
+
+                '<div class="item-name">' +
+                escapeHTML(
+                    item.name ||
+                    "AUREX Product"
+                ) +
+                '</div>' +
+
+                '<div class="item-meta">' +
+                'Qty: ' +
+                Number(item.quantity || 1) +
+
+                (
+                    item.size
+                    ? ' • Size: ' +
+                    escapeHTML(item.size)
+                    : ''
+                ) +
+
+                '</div>' +
+
+                '</div>' +
+
+                '<div class="item-price">' +
+                '₹' +
+                itemTotal.toLocaleString("en-IN") +
+                '</div>' +
+
+                '</div>';
+
+        }
+
+
+        var progressWidth =
+            activeStep * 25;
+
+
+        var card =
+            document.createElement("div");
+
+
+        card.className =
+            "order-card";
+
+
+        card.innerHTML =
+
+            '<div class="order-top">' +
+
+            '<div>' +
+
+            '<div class="order-id">' +
+            'Order #' +
+            escapeHTML(order.id) +
+            '</div>' +
+
+            '<div class="order-date">' +
+            escapeHTML(order.date || "") +
+            '</div>' +
+
+            '<span class="status">' +
+            escapeHTML(status) +
+            '</span>' +
+
+            '</div>' +
+
+            '<div class="order-total">' +
+            '₹' +
+            total.toLocaleString("en-IN") +
+            '</div>' +
+
+            '</div>' +
+
+
+            '<div class="tracking">' +
+
+            '<div class="tracking-title">' +
+            'Delivery Tracking' +
+            '</div>' +
+
+            '<div class="progress">' +
+
+            '<div class="progress-line"></div>' +
+
+            '<div class="progress-line-active" ' +
+            'style="width:' +
+            progressWidth +
+            '%"></div>' +
+
+
+            '<div class="step ' +
+            (activeStep >= 0 ? "active" : "") +
+            '">' +
+
+            '<div class="step-circle">1</div>' +
+
+            '<div class="step-label">' +
+            'Placed' +
+            '</div>' +
+
+            '</div>' +
+
+
+            '<div class="step ' +
+            (activeStep >= 1 ? "active" : "") +
+            '">' +
+
+            '<div class="step-circle">2</div>' +
+
+            '<div class="step-label">' +
+            'Confirmed' +
+            '</div>' +
+
+            '</div>' +
+
+
+            '<div class="step ' +
+            (activeStep >= 2 ? "active" : "") +
+            '">' +
+
+            '<div class="step-circle">3</div>' +
+
+            '<div class="step-label">' +
+            'Shipped' +
+            '</div>' +
+
+            '</div>' +
+
+
+            '<div class="step ' +
+            (activeStep >= 3 ? "active" : "") +
+            '">' +
+
+            '<div class="step-circle">4</div>' +
+
+            '<div class="step-label">' +
+            'Out for Delivery' +
+            '</div>' +
+
+            '</div>' +
+
+
+            '<div class="step ' +
+            (activeStep >= 4 ? "active" : "") +
+            '">' +
+
+            '<div class="step-circle">5</div>' +
+
+            '<div class="step-label">' +
+            'Delivered' +
+            '</div>' +
+
+            '</div>' +
+
+            '</div>' +
+
+            '</div>' +
+
+
+            '<div class="items">' +
+
+            itemsHTML +
+
+            '</div>';
+
+
+        container.appendChild(card);
+
+    }
+
+}
+
+
+renderOrders();
+
+</script>
+
+
+</body>
+
+</html>

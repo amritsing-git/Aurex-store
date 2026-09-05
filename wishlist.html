@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>AUREX — Wishlist</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    color: #111;
+}
+
+.wishlist-header {
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 15px 5%;
+}
+
+.header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    color: #111;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.header-links {
+    display: flex;
+    gap: 18px;
+}
+
+.header-links a {
+    color: #111;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.wishlist-wrapper {
+    max-width: 1100px;
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+.wishlist-heading {
+    margin-bottom: 25px;
+}
+
+.wishlist-heading h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.wishlist-heading p {
+    margin: 7px 0 0;
+    color: #777;
+    font-size: 13px;
+}
+
+.wishlist-count {
+    margin-top: 10px;
+    color: #777;
+    font-size: 12px;
+}
+
+.wishlist-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(4, 1fr);
+    gap: 18px;
+}
+
+.wishlist-card {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.wishlist-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.08);
+}
+
+.product-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.product-image {
+    width: 100%;
+    height: 240px;
+    object-fit: contain;
+    background: #f3f3f3;
+}
+
+.product-info {
+    padding: 15px;
+}
+
+.product-info h3 {
+    margin: 0 0 8px;
+    font-size: 15px;
+}
+
+.product-price {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.product-category {
+    margin-top: 6px;
+    color: #888;
+    font-size: 11px;
+}
+
+.remove-wishlist {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #fff;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,.12);
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    z-index: 5;
+}
+
+.remove-wishlist:hover {
+    transform: scale(1.08);
+}
+
+.view-button {
+    display: block;
+    margin-top: 12px;
+
+    background: #111;
+    color: #fff;
+
+    text-align: center;
+    text-decoration: none;
+
+    padding: 11px;
+
+    border-radius: 7px;
+
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.empty-wishlist {
+    display: none;
+
+    background: #fff;
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 14px;
+
+    padding: 65px 20px;
+
+    text-align: center;
+}
+
+.empty-icon {
+    font-size: 52px;
+    margin-bottom: 15px;
+}
+
+.empty-wishlist h2 {
+    margin: 0 0 8px;
+    font-size: 22px;
+}
+
+.empty-wishlist p {
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 22px;
+}
+
+.shop-button {
+    display: inline-block;
+
+    background: #111;
+    color: #fff;
+
+    text-decoration: none;
+
+    padding: 13px 26px;
+
+    border-radius: 7px;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.wishlist-footer {
+    margin-top: 50px;
+
+    background: #111;
+    color: #fff;
+
+    text-align: center;
+
+    padding: 35px 20px;
+}
+
+.footer-logo {
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.wishlist-footer p {
+    color: #aaa;
+    font-size: 12px;
+}
+
+@media (max-width: 900px) {
+
+    .wishlist-grid {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .wishlist-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .wishlist-wrapper {
+        margin: 22px auto;
+        padding: 0 12px;
+    }
+
+    .wishlist-heading h1 {
+        font-size: 25px;
+    }
+
+    .product-image {
+        height: 190px;
+    }
+
+    .header-links {
+        gap: 10px;
+    }
+
+}
+
+@media (max-width: 400px) {
+
+    .wishlist-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="wishlist-header">
+
+    <div class="header-row">
+
+        <a
+        href="index.html"
+        class="logo">
+
+            AUREX
+
+        </a>
+
+
+        <div class="header-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="products.html">
+                Shop
+            </a>
+
+            <a href="cart.html">
+                🛒
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="wishlist-wrapper">
+
+
+<div class="wishlist-heading">
+
+    <h1>
+        My Wishlist ♡
+    </h1>
+
+    <p>
+        Products you've saved for later.
+    </p>
+
+    <div
+    id="wishlistCount"
+    class="wishlist-count">
+    </div>
+
+</div>
+
+
+<div
+id="wishlistGrid"
+class="wishlist-grid">
+</div>
+
+
+<div
+id="emptyWishlist"
+class="empty-wishlist">
+
+    <div class="empty-icon">
+        ♡
+    </div>
+
+    <h2>
+        Your wishlist is empty
+    </h2>
+
+    <p>
+        Save products you love and find them here later.
+    </p>
+
+    <a
+    href="products.html"
+    class="shop-button">
+
+        Explore Products
+
+    </a>
+
+</div>
+
+
+</main>
+
+
+<footer class="wishlist-footer">
+
+    <div class="footer-logo">
+        AUREX
+    </div>
+
+    <p>
+        Future in Motion.
+    </p>
+
+    <p>
+        © 2026 AUREX. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+
+<script type="text/javascript">
+
+// @ts-nocheck
+
+
+/* =====================================
+   LOAD WISHLIST
+===================================== */
+
+var wishlist = [];
+
+try {
+
+    wishlist = JSON.parse(
+        localStorage.getItem(
+            "aurexWishlist"
+        ) || "[]"
+    );
+
+    if (!Array.isArray(wishlist)) {
+
+        wishlist = [];
+
+    }
+
+} catch (error) {
+
+    wishlist = [];
+
+}
+
+
+/* =====================================
+   ELEMENTS
+===================================== */
+
+var grid =
+    document.getElementById(
+        "wishlistGrid"
+    );
+
+
+var emptyWishlist =
+    document.getElementById(
+        "emptyWishlist"
+    );
+
+
+var wishlistCount =
+    document.getElementById(
+        "wishlistCount"
+    );
+
+
+/* =====================================
+   SAVE
+===================================== */
+
+function saveWishlist() {
+
+    localStorage.setItem(
+        "aurexWishlist",
+        JSON.stringify(wishlist)
+    );
+
+}
+
+
+/* =====================================
+   ESCAPE HTML
+===================================== */
+
+function escapeHTML(value) {
+
+    var div =
+        document.createElement("div");
+
+    div.textContent =
+        String(value);
+
+    return div.innerHTML;
+
+}
+
+
+/* =====================================
+   RENDER
+===================================== */
+
+function renderWishlist() {
+
+    grid.innerHTML = "";
+
+
+    wishlistCount.textContent =
+        wishlist.length +
+        (
+            wishlist.length === 1
+            ? " saved product"
+            : " saved products"
+        );
+
+
+    if (wishlist.length === 0) {
+
+        grid.style.display = "none";
+
+        emptyWishlist.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    grid.style.display = "grid";
+
+    emptyWishlist.style.display =
+        "none";
+
+
+    for (
+        var i = 0;
+        i < wishlist.length;
+        i++
+    ) {
+
+        var item =
+            wishlist[i];
+
+
+        var image =
+            item.image ||
+            "https://via.placeholder.com/700x700?text=AUREX";
+
+
+        var name =
+            item.name ||
+            "AUREX Product";
+
+
+        var price =
+            Number(
+                item.price || 0
+            );
+
+
+        var category =
+            item.category ||
+            "AUREX";
+
+
+        var card =
+            document.createElement("div");
+
+
+        card.className =
+            "wishlist-card";
+
+
+        card.innerHTML =
+
+            '<button ' +
+            'class="remove-wishlist" ' +
+            'data-index="' +
+            i +
+            '" ' +
+            'title="Remove from wishlist">' +
+
+            '♥' +
+
+            '</button>' +
+
+
+            '<a ' +
+            'class="product-link" ' +
+            'href="product.html?id=' +
+            encodeURIComponent(
+                item.id
+            ) +
+            '">' +
+
+            '<img ' +
+            'class="product-image" ' +
+            'src="' +
+            escapeHTML(image) +
+            '" ' +
+            'alt="' +
+            escapeHTML(name) +
+            '" ' +
+            'loading="lazy">' +
+
+
+            '<div class="product-info">' +
+
+            '<h3>' +
+            escapeHTML(name) +
+            '</h3>' +
+
+            '<p class="product-price">' +
+            '₹' +
+            price.toLocaleString(
+                "en-IN"
+            ) +
+            '</p>' +
+
+            '<div class="product-category">' +
+            escapeHTML(category) +
+            '</div>' +
+
+            '<span class="view-button">' +
+            'View Product' +
+            '</span>' +
+
+            '</div>' +
+
+            '</a>';
+
+
+        grid.appendChild(card);
+
+    }
+
+
+    var removeButtons =
+        document.querySelectorAll(
+            ".remove-wishlist"
+        );
+
+
+    for (
+        var r = 0;
+        r < removeButtons.length;
+        r++
+    ) {
+
+        removeButtons[r]
+        .addEventListener(
+            "click",
+            function(event) {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                var index =
+                    Number(
+                        this.getAttribute(
+                            "data-index"
+                        )
+                    );
+
+
+                wishlist.splice(
+                    index,
+                    1
+                );
+
+
+                saveWishlist();
+
+                renderWishlist();
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =====================================
+   INITIAL LOAD
+===================================== */
+
+renderWishlist();
+
+</script>
+<link rel="stylesheet" href="bottom-nav.css">
+<script src="bottom-nav.js"></script>
+
+</body>
+
+</html>

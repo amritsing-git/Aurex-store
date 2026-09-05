@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AUREX — Secure Checkout</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+    color:#111;
+}
+
+/* HEADER */
+
+.checkout-header{
+    background:#fff;
+    border-bottom:1px solid #e5e5e5;
+    padding:15px 5%;
+}
+
+.checkout-header-row{
+    max-width:1100px;
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    text-decoration:none;
+    color:#111;
+    font-size:23px;
+    font-weight:900;
+    letter-spacing:3px;
+}
+
+.back-cart{
+    text-decoration:none;
+    color:#333;
+    font-size:13px;
+    font-weight:bold;
+}
+
+/* MAIN */
+
+.checkout-wrapper{
+    max-width:1100px;
+    margin:30px auto;
+    padding:0 18px;
+}
+
+.checkout-heading{
+    margin-bottom:22px;
+}
+
+.checkout-heading h1{
+    margin:0;
+    font-size:30px;
+}
+
+.checkout-heading p{
+    margin:7px 0 0;
+    color:#777;
+    font-size:13px;
+}
+
+/* STEPS */
+
+.checkout-steps{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:25px;
+    font-size:12px;
+}
+
+.step{
+    color:#999;
+    font-weight:bold;
+}
+
+.step.active{
+    color:#111;
+}
+
+.step-line{
+    width:35px;
+    height:1px;
+    background:#ccc;
+}
+
+/* LAYOUT */
+
+.checkout-layout{
+    display:grid;
+    grid-template-columns:1fr 370px;
+    gap:20px;
+}
+
+/* BOX */
+
+.checkout-box{
+    background:#fff;
+    border:1px solid #e3e3e3;
+    border-radius:14px;
+    padding:23px;
+}
+
+.checkout-box h2{
+    margin:0 0 20px;
+    font-size:19px;
+}
+
+/* FORM */
+
+.form-group{
+    margin-bottom:16px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:7px;
+    font-size:12px;
+    font-weight:800;
+}
+
+.form-group input,
+.form-group textarea{
+    width:100%;
+    padding:13px;
+    border:1px solid #d5d5d5;
+    border-radius:8px;
+    outline:none;
+    font-size:13px;
+    font-family:Arial,sans-serif;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+    border-color:#111;
+}
+
+.form-group textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+/* PAYMENT */
+
+.payment-option{
+    border:1px solid #111;
+    border-radius:9px;
+    padding:15px;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    background:#fafafa;
+}
+
+.payment-option input{
+    accent-color:#111;
+}
+
+.payment-title{
+    font-size:13px;
+    font-weight:bold;
+}
+
+.payment-subtitle{
+    color:#777;
+    font-size:11px;
+    margin-top:3px;
+}
+
+/* ORDER ITEMS */
+
+.order-items{
+    display:grid;
+    gap:13px;
+    margin-bottom:20px;
+}
+
+.order-item{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.order-image{
+    width:62px;
+    height:62px;
+    object-fit:contain;
+    background:#f3f3f3;
+    border-radius:8px;
+}
+
+.order-info{
+    flex:1;
+    min-width:0;
+}
+
+.order-name{
+    margin:0 0 5px;
+    font-size:13px;
+    font-weight:bold;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.order-quantity{
+    margin:0;
+    color:#777;
+    font-size:11px;
+}
+
+.order-price{
+    font-size:13px;
+    font-weight:bold;
+}
+
+/* SUMMARY */
+
+.summary-line{
+    display:flex;
+    justify-content:space-between;
+    margin-top:13px;
+    font-size:13px;
+}
+
+.free{
+    color:#16803c;
+    font-weight:bold;
+}
+
+.summary-total{
+    border-top:1px solid #eee;
+    margin-top:17px;
+    padding-top:17px;
+
+    font-size:19px;
+    font-weight:900;
+}
+
+/* PLACE ORDER */
+
+.place-order{
+    width:100%;
+    margin-top:20px;
+    padding:15px;
+
+    border:0;
+    border-radius:9px;
+
+    background:#111;
+    color:#fff;
+
+    font-size:14px;
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+.place-order:hover{
+    opacity:.92;
+}
+
+.place-order:active{
+    transform:scale(.99);
+}
+
+/* TRUST */
+
+.trust-box{
+    margin-top:15px;
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.trust-item{
+    border:1px solid #e5e5e5;
+    border-radius:8px;
+    padding:11px 5px;
+    text-align:center;
+    background:#fff;
+}
+
+.trust-item strong{
+    display:block;
+    font-size:11px;
+}
+
+.trust-item span{
+    display:block;
+    margin-top:3px;
+    color:#888;
+    font-size:9px;
+}
+
+/* SUCCESS */
+
+.success-screen{
+    display:none;
+    max-width:700px;
+    margin:40px auto;
+    background:#fff;
+    border:1px solid #e2e2e2;
+    border-radius:18px;
+    padding:45px 25px;
+    text-align:center;
+}
+
+.success-circle{
+    width:75px;
+    height:75px;
+    margin:0 auto 20px;
+
+    border-radius:50%;
+
+    background:#111;
+    color:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:38px;
+    font-weight:bold;
+}
+
+.success-screen h2{
+    margin:0 0 8px;
+    font-size:25px;
+}
+
+.success-screen > p{
+    margin:0 auto 22px;
+    max-width:500px;
+    color:#777;
+    font-size:13px;
+    line-height:1.6;
+}
+
+.order-card{
+    background:#f8f8f8;
+    border:1px solid #e5e5e5;
+    border-radius:11px;
+    padding:17px;
+    margin-bottom:20px;
+}
+
+.order-card-row{
+    display:flex;
+    justify-content:space-between;
+    margin:8px 0;
+    font-size:13px;
+}
+
+.order-card-row strong{
+    font-weight:800;
+}
+
+.delivery-highlight{
+    margin-top:15px;
+    padding:13px;
+
+    background:#f1f1f1;
+    border-radius:8px;
+
+    font-size:12px;
+    font-weight:bold;
+}
+
+.success-buttons{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+}
+
+.success-button{
+    display:inline-block;
+    padding:12px 20px;
+    border-radius:8px;
+
+    background:#111;
+    color:#fff;
+
+    text-decoration:none;
+
+    font-size:12px;
+    font-weight:bold;
+}
+
+.success-button.secondary{
+    background:#fff;
+    color:#111;
+    border:1px solid #111;
+}
+
+/* EMPTY */
+
+.empty-cart{
+    display:none;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:14px;
+    padding:50px 20px;
+    text-align:center;
+}
+
+.empty-cart h2{
+    margin:0 0 8px;
+}
+
+.empty-cart p{
+    color:#777;
+    font-size:13px;
+}
+
+.empty-cart a{
+    display:inline-block;
+    margin-top:10px;
+    padding:12px 20px;
+    background:#111;
+    color:#fff;
+    text-decoration:none;
+    border-radius:7px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+/* FOOTER */
+
+.checkout-footer{
+    margin-top:45px;
+    background:#111;
+    color:#fff;
+    text-align:center;
+    padding:32px 20px;
+}
+
+.footer-logo{
+    font-size:23px;
+    font-weight:900;
+    letter-spacing:3px;
+}
+
+.checkout-footer p{
+    color:#aaa;
+    font-size:11px;
+}
+
+/* MOBILE */
+
+@media(max-width:750px){
+
+    .checkout-wrapper{
+        margin:20px auto;
+        padding:0 12px;
+    }
+
+    .checkout-heading h1{
+        font-size:25px;
+    }
+
+    .checkout-layout{
+        grid-template-columns:1fr;
+    }
+
+    .checkout-box{
+        padding:18px;
+    }
+
+    .trust-box{
+        grid-template-columns:1fr;
+    }
+
+    .success-screen{
+        margin:25px 12px;
+        padding:35px 18px;
+    }
+
+    .success-buttons{
+        flex-direction:column;
+    }
+
+    .success-button{
+        width:100%;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="checkout-header">
+
+<div class="checkout-header-row">
+
+<a href="index.html" class="logo">
+AUREX
+</a>
+
+<a href="cart.html" class="back-cart">
+← Back to Cart
+</a>
+
+</div>
+
+</header>
+
+
+
+<main class="checkout-wrapper">
+
+
+<div class="checkout-heading">
+
+<h1>
+Secure Checkout
+</h1>
+
+<p>
+Complete your details and place your AUREX order.
+</p>
+
+</div>
+
+
+
+<div class="checkout-steps">
+
+<span class="step">
+Cart
+</span>
+
+<span class="step-line"></span>
+
+<span class="step active">
+Delivery
+</span>
+
+<span class="step-line"></span>
+
+<span class="step">
+Confirmation
+</span>
+
+</div>
+
+
+
+<div id="checkoutContent"
+class="checkout-layout">
+
+
+<!-- DELIVERY -->
+
+<section class="checkout-box">
+
+<h2>
+Delivery Details
+</h2>
+
+
+<form id="checkoutForm">
+
+
+<div class="form-group">
+
+<label for="name">
+FULL NAME
+</label>
+
+<input
+id="name"
+type="text"
+placeholder="Enter your full name"
+required>
+
+</div>
+
+
+
+<div class="form-group">
+
+<label for="phone">
+MOBILE NUMBER
+</label>
+
+<input
+id="phone"
+type="tel"
+placeholder="10 digit mobile number"
+maxlength="10"
+inputmode="numeric"
+required>
+
+</div>
+
+
+
+<div class="form-group">
+
+<label for="address">
+FULL ADDRESS
+</label>
+
+<textarea
+id="address"
+placeholder="House no., street, area..."
+required></textarea>
+
+</div>
+
+
+
+<div class="form-group">
+
+<label for="city">
+CITY
+</label>
+
+<input
+id="city"
+type="text"
+placeholder="Enter your city"
+required>
+
+</div>
+
+
+
+<div class="form-group">
+
+<label for="pincode">
+PINCODE
+</label>
+
+<input
+id="pincode"
+type="text"
+placeholder="6 digit pincode"
+maxlength="6"
+inputmode="numeric"
+required>
+
+</div>
+
+
+
+<h2 style="margin-top:28px;">
+Payment Method
+</h2>
+
+
+<div class="payment-option">
+
+<input
+type="radio"
+id="cod"
+name="payment"
+value="COD"
+checked>
+
+<div>
+
+<div class="payment-title">
+Cash on Delivery
+</div>
+
+<div class="payment-subtitle">
+Pay when your order arrives.
+</div>
+
+</div>
+
+</div>
+
+
+
+<button
+type="submit"
+class="place-order">
+
+Place Order securely →
+
+</button>
+
+
+</form>
+
+
+<div class="trust-box">
+
+<div class="trust-item">
+
+<strong>🔒 Secure</strong>
+
+<span>Safe checkout</span>
+
+</div>
+
+<div class="trust-item">
+
+<strong>🚚 Delivery</strong>
+
+<span>Across India</span>
+
+</div>
+
+<div class="trust-item">
+
+<strong>↩️ Returns</strong>
+
+<span>Easy returns</span>
+
+</div>
+
+</div>
+
+
+</section>
+
+
+
+<!-- SUMMARY -->
+
+<section class="checkout-box">
+
+<h2>
+Order Summary
+</h2>
+
+
+<div
+id="orderItems"
+class="order-items">
+</div>
+
+
+<div class="summary-line">
+
+<span>
+Subtotal
+</span>
+
+<span id="orderSubtotal">
+₹0
+</span>
+
+</div>
+
+
+<div class="summary-line">
+
+<span>
+Delivery
+</span>
+
+<span class="free">
+FREE
+</span>
+
+</div>
+
+
+<div class="summary-line summary-total">
+
+<span>
+Total
+</span>
+
+<span id="orderTotal">
+₹0
+</span>
+
+</div>
+
+
+</section>
+
+
+</div>
+
+
+
+<!-- EMPTY CART -->
+
+<div
+id="emptyCart"
+class="empty-cart">
+
+<h2>
+Your cart is empty
+</h2>
+
+<p>
+Add some products before proceeding to checkout.
+</p>
+
+<a href="products.html">
+Continue Shopping
+</a>
+
+</div>
+
+
+
+<!-- SUCCESS -->
+
+<div
+id="successScreen"
+class="success-screen">
+
+
+<div class="success-circle">
+✓
+</div>
+
+
+<h2>
+Order Confirmed!
+</h2>
+
+
+<p>
+Thank you for choosing AUREX. Your order has been successfully placed and we're getting it ready for you.
+</p>
+
+
+
+<div class="order-card">
+
+
+<div class="order-card-row">
+
+<span>
+Order ID
+</span>
+
+<strong id="successOrderId">
+AUREX-000000
+</strong>
+
+</div>
+
+
+<div class="order-card-row">
+
+<span>
+Payment
+</span>
+
+<strong>
+Cash on Delivery
+</strong>
+
+</div>
+
+
+<div class="order-card-row">
+
+<span>
+Amount
+</span>
+
+<strong id="successAmount">
+₹0
+</strong>
+
+</div>
+
+
+<div class="delivery-highlight">
+
+🚚 Expected delivery:
+<span id="deliveryDate">
+Within 3–7 days
+</span>
+
+</div>
+
+
+</div>
+
+
+
+<div class="success-buttons">
+
+<a
+href="products.html"
+class="success-button">
+
+Continue Shopping
+
+</a>
+
+
+<a
+href="index.html"
+class="success-button secondary">
+
+Back to Home
+
+</a>
+
+</div>
+
+
+</div>
+
+
+</main>
+
+
+
+<footer class="checkout-footer">
+
+<div class="footer-logo">
+AUREX
+</div>
+
+<p>
+Future in Motion.
+</p>
+
+<p>
+© 2026 AUREX. All Rights Reserved.
+</p>
+
+</footer>
+
+
+
+<script type="text/javascript">
+
+// @ts-nocheck
+
+
+/* =========================================
+   LOAD CART
+========================================= */
+
+var cart = [];
+
+try {
+
+    cart = JSON.parse(
+        localStorage.getItem("aurexCart") || "[]"
+    );
+
+    if (!Array.isArray(cart)) {
+        cart = [];
+    }
+
+} catch (error) {
+
+    cart = [];
+
+}
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+var checkoutContent =
+    document.getElementById("checkoutContent");
+
+var emptyCart =
+    document.getElementById("emptyCart");
+
+var successScreen =
+    document.getElementById("successScreen");
+
+var orderItems =
+    document.getElementById("orderItems");
+
+var orderSubtotal =
+    document.getElementById("orderSubtotal");
+
+var orderTotal =
+    document.getElementById("orderTotal");
+
+var checkoutForm =
+    document.getElementById("checkoutForm");
+
+
+/* =========================================
+   LOAD ORDER SUMMARY
+========================================= */
+
+function loadOrderSummary() {
+
+    orderItems.innerHTML = "";
+
+    if (cart.length === 0) {
+
+        checkoutContent.style.display = "none";
+
+        emptyCart.style.display = "block";
+
+        return;
+
+    }
+
+    checkoutContent.style.display = "grid";
+
+    emptyCart.style.display = "none";
+
+
+    var totalPrice = 0;
+
+
+    for (
+        var i = 0;
+        i < cart.length;
+        i++
+    ) {
+
+        var item = cart[i];
+
+        var price =
+            Number(item.price) || 0;
+
+        var quantity =
+            Number(item.quantity) || 1;
+
+
+        totalPrice =
+            totalPrice +
+            price * quantity;
+
+
+        var itemElement =
+            document.createElement("div");
+
+        itemElement.className =
+            "order-item";
+
+
+        var image =
+            item.image ||
+            "https://via.placeholder.com/200?text=AUREX";
+
+
+        var name =
+            item.name ||
+            "AUREX Product";
+
+
+        itemElement.innerHTML =
+
+            '<img ' +
+            'class="order-image" ' +
+            'src="' +
+            image +
+            '" ' +
+            'alt="">' +
+
+            '<div class="order-info">' +
+
+            '<p class="order-name">' +
+            name +
+            '</p>' +
+
+            '<p class="order-quantity">' +
+            'Quantity: ' +
+            quantity +
+            (item.size
+                ? ' • Size: ' + item.size
+                : '') +
+            '</p>' +
+
+            '</div>' +
+
+            '<div class="order-price">' +
+            '₹' +
+            (price * quantity).toLocaleString("en-IN") +
+            '</div>';
+
+
+        orderItems.appendChild(
+            itemElement
+        );
+
+    }
+
+
+    orderSubtotal.textContent =
+        "₹" +
+        totalPrice.toLocaleString("en-IN");
+
+
+    orderTotal.textContent =
+        "₹" +
+        totalPrice.toLocaleString("en-IN");
+
+}
+
+
+/* =========================================
+   ORDER ID
+========================================= */
+
+function generateOrderId() {
+
+    var randomNumber =
+        Math.floor(
+            100000 +
+            Math.random() * 900000
+        );
+
+    return "AUREX-" + randomNumber;
+
+}
+
+
+/* =========================================
+   DELIVERY DATE
+========================================= */
+
+function getDeliveryDate() {
+
+    var date =
+        new Date();
+
+    date.setDate(
+        date.getDate() + 5
+    );
+
+
+    var options = {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+    };
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        options
+    );
+
+}
+
+
+/* =========================================
+   PLACE ORDER
+========================================= */
+
+checkoutForm.addEventListener(
+    "submit",
+    function(event) {
+
+        event.preventDefault();
+
+
+        if (cart.length === 0) {
+
+            alert(
+                "Your cart is empty."
+            );
+
+            return;
+
+        }
+
+
+        var name =
+            document.getElementById(
+                "name"
+            ).value.trim();
+
+
+        var phone =
+            document.getElementById(
+                "phone"
+            ).value.trim();
+
+
+        var address =
+            document.getElementById(
+                "address"
+            ).value.trim();
+
+
+        var city =
+            document.getElementById(
+                "city"
+            ).value.trim();
+
+
+        var pincode =
+            document.getElementById(
+                "pincode"
+            ).value.trim();
+
+
+        /* MOBILE VALIDATION */
+
+        if (!/^[0-9]{10}$/.test(phone)) {
+
+            alert(
+                "Please enter a valid 10 digit mobile number."
+            );
+
+            return;
+
+        }
+
+
+        /* PINCODE VALIDATION */
+
+        if (!/^[0-9]{6}$/.test(pincode)) {
+
+            alert(
+                "Please enter a valid 6 digit pincode."
+            );
+
+            return;
+
+        }
+
+
+        var total = 0;
+
+
+        for (
+            var i = 0;
+            i < cart.length;
+            i++
+        ) {
+
+            total =
+                total +
+                (
+                    Number(cart[i].price) *
+                    Number(cart[i].quantity)
+                );
+
+        }
+
+
+        var orderId =
+            generateOrderId();
+
+
+        /* =================================
+           SAVE ORDER
+        ================================= */
+
+        var order = {
+
+            id: orderId,
+
+            customer: {
+
+                name: name,
+
+                phone: phone,
+
+                address: address,
+
+                city: city,
+
+                pincode: pincode
+
+            },
+
+            payment:
+                "Cash on Delivery",
+
+            items:
+                cart,
+
+            total:
+                total,
+
+            status:
+                "Confirmed",
+
+            date:
+                new Date().toISOString()
+
+        };
+
+
+        var savedOrders = [];
+
+
+        try {
+
+            savedOrders =
+                JSON.parse(
+                    localStorage.getItem(
+                        "aurexOrders"
+                    ) || "[]"
+                );
+
+            if (!Array.isArray(savedOrders)) {
+
+                savedOrders = [];
+
+            }
+
+        } catch (error) {
+
+            savedOrders = [];
+
+        }
+
+
+        savedOrders.push(order);
+
+
+        localStorage.setItem(
+            "aurexOrders",
+            JSON.stringify(savedOrders)
+        );
+
+
+        /* =================================
+           SUCCESS SCREEN
+        ================================= */
+
+        document.getElementById(
+            "successOrderId"
+        ).textContent =
+            orderId;
+
+
+        document.getElementById(
+            "successAmount"
+        ).textContent =
+            "₹" +
+            total.toLocaleString("en-IN");
+
+
+        document.getElementById(
+            "deliveryDate"
+        ).textContent =
+            getDeliveryDate();
+
+
+        checkoutContent.style.display =
+            "none";
+
+
+        emptyCart.style.display =
+            "none";
+
+
+        successScreen.style.display =
+            "block";
+
+
+        /* =================================
+           CLEAR CART
+        ================================= */
+
+        localStorage.removeItem(
+            "aurexCart"
+        );
+
+
+        window.scrollTo(
+            0,
+            0
+        );
+
+    }
+);
+
+
+/* =========================================
+   INITIAL LOAD
+========================================= */
+
+loadOrderSummary();
+
+</script>
+<link rel="stylesheet" href="bottom-nav.css">
+<script src="bottom-nav.js"></script>
+
+</body>
+
+</html>

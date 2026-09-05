@@ -1,0 +1,200 @@
+/* AUREX STORE RESET */
+
+.products-page,
+.products-page * {
+    box-sizing: border-box;
+}
+
+.products-page {
+    margin: 0;
+    background: #f6f6f6;
+    color: #111;
+    font-family: Arial, sans-serif;
+}
+
+.products-page a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* STORE HEADER */
+
+.products-top {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 12px 5%;
+}
+
+.products-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.products-logo {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.products-icons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.products-icons a {
+    font-size: 20px;
+}
+
+/* SEARCH */
+
+.products-search {
+    margin-top: 12px;
+}
+
+.products-search input {
+    width: 100%;
+    height: 42px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 14px;
+    font-size: 14px;
+    outline: none;
+}
+/* AUREX SHOP CATEGORIES */
+
+.store-categories {
+    background: #fff;
+    padding: 16px 5%;
+    border-bottom: 1px solid #eee;
+}
+
+.store-categories h2 {
+    margin: 0 0 12px;
+    font-size: 18px;
+}
+
+.category-scroll {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.category-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.category-scroll a {
+    flex-shrink: 0;
+    padding: 9px 17px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.category-scroll a:first-child {
+    background: #111;
+    color: #fff;
+    border-color: #111;
+}
+
+
+/* SHOP TITLE */
+
+.shop-header {
+    background: #f6f6f6;
+    padding: 24px 5% 12px;
+}
+
+.shop-header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.shop-header p {
+    margin: 7px 0 0;
+    color: #777;
+    font-size: 13px;
+}
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 15px 5% 40px;
+    background: #f6f6f6;
+}
+
+.shop-card {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.shop-card img {
+    width: 100%;
+    height: 170px;
+    object-fit: contain;
+    background: #f7f7f7;
+}
+
+.product-info {
+    padding: 10px;
+}
+
+.shop-card h3 {
+    margin: 0 0 6px;
+    font-size: 14px;
+}
+
+.product-price {
+    margin: 0 0 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.product-button {
+    display: block;
+    text-align: center;
+    padding: 9px;
+    border: 1px solid #111;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: bold;
+}
+.shop-card .product-info {
+    padding: 10px;
+}
+
+.shop-card h3 {
+    color: #111;
+}
+
+.shop-card .product-price {
+    color: #111;
+}
+
+.product-button {
+    background: #111;
+    color: #fff;
+    transition: opacity 0.2s;
+}
+
+.product-button:hover {
+    opacity: 0.85;
+}
+.product-button {
+    background: #111 !important;
+    color: #fff !important;
+    display: block;
+    text-align: center;
+    padding: 9px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: bold;
+}
